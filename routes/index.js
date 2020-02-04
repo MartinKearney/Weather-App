@@ -46,14 +46,20 @@ router.get('/:city', async (req, res) => {
       }
     }
 
+    // will keep these console logs in until testing is over
     console.log('');
     console.log(`Duplicate country codes: ${duplicateCodes}`);
     console.log('');
     console.log(duplicateCodes);
     console.log('');
 
+    // want to send back the foundCities array
+    // *and* the duplicateCodes array
+
+    const returnData = [foundCities, duplicateCodes];
+
     // send response
-    res.json(foundCities);
+    res.json(returnData);
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: 'Server error!' });
