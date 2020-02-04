@@ -49,8 +49,6 @@ router.get('/:city', async (req, res) => {
     // will keep these console logs in until happy
     // that client side is working as it should
     console.log('');
-    console.log(`Duplicate country codes: ${duplicateCodes}`);
-    console.log('');
     console.log(duplicateCodes);
     console.log('');
 
