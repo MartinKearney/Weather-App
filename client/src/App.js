@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
 import './App.css';
 
-function App() {
+const App = () => {
+  // set up state using useState hook
+  const [citySearchedFor, setCitySearchedFor] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [cityResults, setCityResults] = useState([]);
+  const [duplicateCountryCodes, setDuplicateCountryCodes] = useState([]);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [currentWeather, setCurrentWeather] = useState([]);
+  const [fiveDayForecast, setFiveDayForecast] = useState([]);
+
   return (
     <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React - it's awesome!
-        </a>
-      </header>
+      <header className='header'>Weather Search</header>
     </div>
   );
-}
+};
 
 export default App;
