@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json({ extended: false }));
 
 // Define API end point
-app.use('/', require('./routes/index'));
+app.use('/findcities/', require('./routes/index'));
 
 // Serve static assets in production i.e. React
 if (process.env.NODE_ENV === 'production') {
