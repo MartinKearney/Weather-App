@@ -2,17 +2,29 @@ import React, { useState } from 'react';
 
 import './SearchComponent.css';
 
-const SearchComponent = ({ getCityResultsList }) => {
+const SearchComponent = ({ getCitySearchResults, handleClear }) => {
   const [text, setText] = useState('');
 
-  const onChange = e => setText(e.target.value);
-
-  const onSubmit = e => {
-    e.preventDefault();
-    getCityResultsList(text);
+  const onChange = e => {
+    setText(e.target.value);
+    if (e.target.value === '') {
+      handleClear();
+    }
   };
 
-  const handleClear = () => setText('');
+  const onSubmit = e => {
+    console.log(`Search Component - onSubmit`);
+    e.preventDefault();
+
+    const city = text;
+    // clearSearch();
+    getCitySearchResults(city);
+  };
+
+  const clearSearch = () => {
+    setText('');
+    handleClear();
+  };
 
   return (
     <div>
@@ -32,7 +44,7 @@ const SearchComponent = ({ getCityResultsList }) => {
           value='Search'
           // className='btn btn-dark btn-block'
         />
-        <button className='clear' onClick={handleClear} disabled={!text}>
+        <button className='clear' onClick={clearSearch} disabled={!text}>
           Clear
         </button>
       </form>
