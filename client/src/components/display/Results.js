@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Results = ({ cities, dups, noResults }) => {
+const Results = ({ cities, dups, noResults, getChoiceList }) => {
   console.log(cities);
   console.log(dups);
+
+  // Return msg to show no results were found
   if (noResults) {
     return (
       <div>
@@ -13,9 +15,10 @@ const Results = ({ cities, dups, noResults }) => {
   if (cities.length !== 0 && dups.length !== 0) {
     if (cities[0].name === dups[0]) {
       console.log('Match');
+      getChoiceList(cities, dups);
       return (
         <div>
-          <p>Weather for {cities[0].name}!</p>
+          <p>Showing results for {cities[0].name}</p>
         </div>
       );
     } else {

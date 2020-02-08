@@ -15,6 +15,7 @@ const App = () => {
   const [noResults, setNoResults] = useState(false);
   const [cityResults, setCityResults] = useState([]);
   const [duplicateCountryCodes, setDuplicateCountryCodes] = useState([]);
+  const [finalList, setFinalList] = useState([]);
   const [selectedCity, setSelectedCity] = useState('');
   const [currentWeather, setCurrentWeather] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
@@ -29,21 +30,62 @@ const App = () => {
       setCityResults([]);
       setDuplicateCountryCodes([]);
     } else {
+      setNoResults(false);
       setCityResults(searchResults.data[0]);
       setDuplicateCountryCodes(searchResults.data[1]);
     }
+  };
 
-    // logs results to console
-    // console.log(cityResults);
-    // console.log(duplicateCountryCodes);
-    // console.log(cityResults.length);
-    // console.log(duplicateCountryCodes.length);
+  const getChoiceList = async (cities, duplicates) => {
+    // go through each city - if it's country is in the duplicates
+    // list then call the api with the city's lat & lon and extract
+    // the principal subdivision and append it to the list
+    for (let i = 0; i < cities.length; i++) {
+      // check for city being in a country with other
+      // cities of the same name
+      if (duplicates.includes(cities[i].country)) {
+        // contact api
+        // first get coords of city
+        const lat = cities[i].coord.lat;
+        const lon = cities[i].coord.lon;
+        // make call
+        const result = await axios.get(
+          `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`
+        );
+        // append part of result to country
+        if (result.data.principalSubdivision) {
+          cities[i].country =
+            result.data.principalSubdivision + ', ' + cities[i].country;
+        }
+        // cities[i].subDiv = result.data.principalSubdivision;
+
+        console.log(result);
+      }
+    }
+    // now want to remove any items that have the same
+    // country as another item and what about sorting the
+    // list based on country and is there an api to
+    // convert country codes to names?
+    // ***save for later***
+    console.log('Bonjour');
+    console.log(cities);
+    console.log(duplicates);
+    // update the state
+    setFinalList(cities);
+  };
+
+  const getCurrentWeather = async id => {
+    const current = await axios.get(
+      `http://api.openweathermap.org/data/2.5/weather?id=${id}&units=Imperial&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
+    );
+    setCurrentWeather(current);
   };
 
   const handleClear = () => {
     setCityResults([]);
     setDuplicateCountryCodes([]);
     setNoResults(false);
+    setFinalList([]);
   };
 
   useEffect(() => {
@@ -61,7 +103,9 @@ const App = () => {
         cities={cityResults}
         dups={duplicateCountryCodes}
         noResults={noResults}
+        getChoiceList={getChoiceList}
       />
+      {finalList.length !== 0 && <ChoiceList cities={finalList} />}
     </div>
   );
 };
