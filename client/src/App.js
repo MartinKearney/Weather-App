@@ -74,6 +74,12 @@ const App = () => {
     setFinalList(cities);
   };
 
+  const selectCity = city => {
+    console.log(`Chosen city: ${city.name} - ${city.country} - id: ${city.id}`);
+    // *** got correct city here - now want to set the appropriate state
+    // call the api to get the current weather and conditionally render ***
+  };
+
   const getCurrentWeather = async id => {
     const current = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?id=${id}&units=Imperial&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
@@ -105,7 +111,9 @@ const App = () => {
         noResults={noResults}
         getChoiceList={getChoiceList}
       />
-      {finalList.length !== 0 && <ChoiceList cities={finalList} />}
+      {finalList.length !== 0 && (
+        <ChoiceList cities={finalList} selectCity={selectCity} />
+      )}
     </div>
   );
 };
