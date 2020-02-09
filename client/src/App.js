@@ -5,6 +5,7 @@ import SearchComponent from './components/search/SearchComponent';
 import Spinner from './components/utils/Spinner';
 import Results from './components/display/Results';
 import ChoiceList from './components/display/ChoiceList';
+import Weather from './components/display/weather/Weather';
 
 import './App.css';
 
@@ -16,7 +17,7 @@ const App = () => {
   const [cityResults, setCityResults] = useState([]);
   const [duplicateCountryCodes, setDuplicateCountryCodes] = useState([]);
   const [finalList, setFinalList] = useState([]);
-  const [selectedCity, setSelectedCity] = useState('');
+  const [country, setCountry] = useState('');
   const [currentWeather, setCurrentWeather] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
 
@@ -78,13 +79,27 @@ const App = () => {
     console.log(`Chosen city: ${city.name} - ${city.country} - id: ${city.id}`);
     // *** got correct city here - now want to set the appropriate state
     // call the api to get the current weather and conditionally render ***
+    getCurrentWeather(city.id, city.country);
   };
 
-  const getCurrentWeather = async id => {
+  const getCurrentWeather = async (id, country) => {
     const current = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?id=${id}&units=Imperial&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
     );
-    setCurrentWeather(current);
+    console.log(current.data);
+    setCurrentWeather(current.data);
+    setCountry(country);
+
+    // Now get five day forecast data
+    getFiveDayForecast(id);
+  };
+
+  const getFiveDayForecast = async id => {
+    const fiveDay = await axios.get(
+      `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=Imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+    );
+    console.log(fiveDay.data);
+    setFiveDayForecast(fiveDay.data);
   };
 
   const handleClear = () => {
@@ -92,6 +107,9 @@ const App = () => {
     setDuplicateCountryCodes([]);
     setNoResults(false);
     setFinalList([]);
+    setCurrentWeather([]);
+    setCountry('');
+    setFiveDayForecast([]);
   };
 
   useEffect(() => {
@@ -114,6 +132,15 @@ const App = () => {
       {finalList.length !== 0 && (
         <ChoiceList cities={finalList} selectCity={selectCity} />
       )}
+      {currentWeather.length !== 0 &&
+        country !== '' &&
+        fiveDayForecast.length !== 0 && (
+          <Weather
+            currentData={currentWeather}
+            country={country}
+            fiveDay={fiveDayForecast}
+          />
+        )}
     </div>
   );
 };
