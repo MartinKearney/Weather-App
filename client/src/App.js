@@ -11,7 +11,6 @@ import './App.css';
 
 const App = () => {
   // set up state using useState hook
-  const [citySearchedFor, setCitySearchedFor] = useState('');
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [cityResults, setCityResults] = useState([]);
