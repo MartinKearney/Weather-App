@@ -13,6 +13,7 @@ const App = () => {
   // set up state using useState hook
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
+  const [hideResults, setHideResults] = useState(false);
   const [cityResults, setCityResults] = useState([]);
   const [duplicateCountryCodes, setDuplicateCountryCodes] = useState([]);
   const [finalList, setFinalList] = useState([]);
@@ -78,6 +79,8 @@ const App = () => {
     console.log(`Chosen city: ${city.name} - ${city.country} - id: ${city.id}`);
     // *** got correct city here - now want to set the appropriate state
     // call the api to get the current weather and conditionally render ***
+    // first hide results
+    setHideResults(true);
     getCurrentWeather(city.id, city.country);
   };
 
@@ -109,6 +112,7 @@ const App = () => {
     setCurrentWeather([]);
     setCountry('');
     setFiveDayForecast([]);
+    setHideResults(false);
   };
 
   useEffect(() => {
@@ -122,13 +126,15 @@ const App = () => {
         getCitySearchResults={getCitySearchResults}
         handleClear={handleClear}
       />
-      <Results
-        cities={cityResults}
-        dups={duplicateCountryCodes}
-        noResults={noResults}
-        getChoiceList={getChoiceList}
-      />
-      {finalList.length !== 0 && (
+      {!hideResults && (
+        <Results
+          cities={cityResults}
+          dups={duplicateCountryCodes}
+          noResults={noResults}
+          getChoiceList={getChoiceList}
+        />
+      )}
+      {finalList.length !== 0 && !hideResults && (
         <ChoiceList cities={finalList} selectCity={selectCity} />
       )}
       {currentWeather.length !== 0 &&
