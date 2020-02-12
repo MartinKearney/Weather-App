@@ -15,7 +15,6 @@ const App = () => {
   const [noResults, setNoResults] = useState(false);
   const [hideResults, setHideResults] = useState(false);
   const [cityResults, setCityResults] = useState([]);
-  const [duplicateCountryCodes, setDuplicateCountryCodes] = useState([]);
   const [finalList, setFinalList] = useState([]);
   const [country, setCountry] = useState('');
   const [currentWeather, setCurrentWeather] = useState([]);
@@ -29,50 +28,38 @@ const App = () => {
     if (searchResults.data === 'No Results') {
       setNoResults(true);
       setCityResults([]);
-      setDuplicateCountryCodes([]);
     } else {
       setNoResults(false);
-      setCityResults(searchResults.data[0]);
-      setDuplicateCountryCodes(searchResults.data[1]);
+      setCityResults(searchResults.data);
     }
   };
 
-  const getChoiceList = async (cities, duplicates) => {
-    // go through each city - if it's country is in the duplicates
-    // list then call the api with the city's lat & lon and extract
-    // the principal subdivision and append it to the list
-    for (let i = 0; i < cities.length; i++) {
-      // check for city being in a country with other
-      // cities of the same name
-      if (duplicates.includes(cities[i].country)) {
-        // contact api
-        // first get coords of city
-        const lat = cities[i].coord.lat;
-        const lon = cities[i].coord.lon;
-        // make call
-        const result = await axios.get(
-          `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`
-        );
-        // append part of result to country
-        if (result.data.principalSubdivision) {
-          cities[i].country =
-            result.data.principalSubdivision + ', ' + cities[i].country;
-        }
-        // cities[i].subDiv = result.data.principalSubdivision;
+  const getChoiceList = async cities => {
+    // set up empty array for results
+    let tempResults = [];
 
-        console.log(result);
-      }
+    for (let i = 0; i < cities.length; i++) {
+      console.log(cities[i]);
+      const latitude = cities[i].coord.lat;
+      const longitude = cities[i].coord.lon;
+      const result = await axios.get(
+        `https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?apiKey=${process.env.REACT_APP_DEVHERE_KEY}&mode=retrieveAddresses&prox=${latitude},${longitude},250`
+      );
+
+      // Add appropriate data to tempResults array
+      tempResults[i] = {
+        id: cities[i].id,
+        name: cities[i].name,
+        state:
+          result.data.Response.View[0].Result[0].Location.Address
+            .AdditionalData[1].value,
+        country:
+          result.data.Response.View[0].Result[0].Location.Address
+            .AdditionalData[0].value
+      };
     }
-    // now want to remove any items that have the same
-    // country as another item and what about sorting the
-    // list based on country and is there an api to
-    // convert country codes to names?
-    // ***save for later***
-    console.log('Bonjour');
-    console.log(cities);
-    console.log(duplicates);
     // update the state
-    setFinalList(cities);
+    setFinalList(tempResults);
   };
 
   const selectCity = city => {
@@ -106,7 +93,7 @@ const App = () => {
 
   const handleClear = () => {
     setCityResults([]);
-    setDuplicateCountryCodes([]);
+    // setDuplicateCountryCodes([]);
     setNoResults(false);
     setFinalList([]);
     setCurrentWeather([]);
@@ -129,7 +116,6 @@ const App = () => {
       {!hideResults && (
         <Results
           cities={cityResults}
-          dups={duplicateCountryCodes}
           noResults={noResults}
           getChoiceList={getChoiceList}
         />

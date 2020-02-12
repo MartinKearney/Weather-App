@@ -13,11 +13,8 @@ const SearchComponent = ({ getCitySearchResults, handleClear }) => {
   };
 
   const onSubmit = e => {
-    console.log(`Search Component - onSubmit`);
     e.preventDefault();
-
     const city = text;
-    // clearSearch();
     getCitySearchResults(city);
   };
 
