@@ -5,11 +5,12 @@ import FiveDay from './FiveDay';
 
 import './Weather.css';
 
-const Weather = ({ currentData, country, fiveDay }) => {
+const Weather = ({ city, currentData, fiveDay }) => {
+  const { name, state, country } = city;
   return (
     <div>
       <p>
-        The is Weather for {currentData.name} - {country}
+        Showing weather for {name} - {state}, {country}
       </p>
       <CurrentWeather data={currentData} />
       <p>--------------------------------</p>

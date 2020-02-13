@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ChoiceItem = ({ city, selectCity }) => {
+  const { name, state, country } = city;
   const handleClick = () => {
     selectCity(city);
   };
@@ -8,7 +9,8 @@ const ChoiceItem = ({ city, selectCity }) => {
   return (
     <div>
       <p onClick={handleClick} city={city}>
-        {city.name} - {city.state}, {city.country}
+        {name} - {state}
+        {state === '' ? '' : ','} {country}
       </p>
     </div>
   );

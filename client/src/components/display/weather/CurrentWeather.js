@@ -13,9 +13,9 @@ const CurrentWeather = ({ data }) => {
 
   const { name, sys, main, weather, wind, dt } = data;
 
-  console.log('Day: ' + getWeekday(dt));
-  console.log('Time: ' + getHourTime12(dt));
-  console.log(new Date(dt));
+  // console.log('Day: ' + getWeekday(dt));
+  // console.log('Time: ' + getHourTime12(dt));
+  // console.log(new Date(dt));
 
   return <div>Current</div>;
 };

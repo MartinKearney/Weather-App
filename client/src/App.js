@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import SearchComponent from './components/search/SearchComponent';
 import Spinner from './components/utils/Spinner';
-import Results from './components/display/Results';
 import ChoiceList from './components/display/ChoiceList';
 import Weather from './components/display/weather/Weather';
 
@@ -12,29 +11,37 @@ import './App.css';
 const App = () => {
   // set up state using useState hook
   const [loading, setLoading] = useState(false);
+
+  const [citySearchedFor, setCitySearchedFor] = useState('');
+  const [searchComplete, setSearchComplete] = useState(false);
   const [noResults, setNoResults] = useState(false);
-  const [hideResults, setHideResults] = useState(false);
-  const [cityResults, setCityResults] = useState([]);
-  const [finalList, setFinalList] = useState([]);
-  const [country, setCountry] = useState('');
+  const [citySearchResults, setCitySearchResults] = useState([]);
+  const [finalChoiceList, setFinalChoiceList] = useState([]);
+  const [showChoiceList, setShowChoiceList] = useState(false);
+  const [selectedCity, setSelectedCity] = useState([]);
+  const [getWeather, setGetWeather] = useState(false);
   const [currentWeather, setCurrentWeather] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
 
   const getCitySearchResults = async cityName => {
-    console.log(`Searching for: ${cityName}`);
     const searchResults = await axios.get(`/findcities/${cityName}`);
-    console.log(searchResults);
-
+    // Update state
+    setCitySearchedFor(cityName);
     if (searchResults.data === 'No Results') {
       setNoResults(true);
-      setCityResults([]);
+      setCitySearchResults([]);
     } else {
       setNoResults(false);
-      setCityResults(searchResults.data);
+      setCitySearchResults(searchResults.data);
     }
+    setSearchComplete(true);
   };
 
   const getChoiceList = async cities => {
+    // clear this state here to stop continual searching as
+    // this function is called every render if 'true'
+    setSearchComplete(false);
+
     // set up empty array for results
     let tempResults = [];
 
@@ -57,78 +64,132 @@ const App = () => {
           result.data.Response.View[0].Result[0].Location.Address
             .AdditionalData[0].value
       };
+      // set county for uk locations
+      if (tempResults[i].country === 'United Kingdom') {
+        tempResults[i].state =
+          result.data.Response.View[0].Result[0].Location.Address.AdditionalData[2].value;
+      }
+      // remove state if city name is the same as it
+      if (tempResults[i].name === tempResults[i].state) {
+        tempResults[i].state = '';
+      }
+      console.log(tempResults[i]);
     }
+
+    // ************************************************
+    // still need to remove duplicates from tempResults
+    // ************************************************
+
     // update the state
-    setFinalList(tempResults);
+    setFinalChoiceList(tempResults);
+    setShowChoiceList(true);
   };
 
   const selectCity = city => {
-    console.log(`Chosen city: ${city.name} - ${city.country} - id: ${city.id}`);
-    // *** got correct city here - now want to set the appropriate state
-    // call the api to get the current weather and conditionally render ***
-    // first hide results
-    setHideResults(true);
-    getCurrentWeather(city.id, city.country);
+    // first hide the list of choice
+    setShowChoiceList(false);
+
+    // set the selected city
+    setSelectedCity(city);
+
+    // set flag to get the weather
+    setGetWeather(true);
   };
 
-  const getCurrentWeather = async (id, country) => {
+  const getCurrentWeather = async city => {
+    // reset this to false to prevent repeated calls to api as this function
+    // is called every render if getWeather is 'true'
+    setGetWeather(false);
+
     const current = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?id=${id}&units=Imperial&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
+      `http://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=Imperial&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
     );
-    console.log(current.data);
+    // console.log(current.data);
     setCurrentWeather(current.data);
-    setCountry(country);
 
     // Now get five day forecast data
-    getFiveDayForecast(id);
+    getFiveDayForecast(city.id);
   };
 
   const getFiveDayForecast = async id => {
     const fiveDay = await axios.get(
       `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=Imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
     );
-    console.log(fiveDay.data);
+    // console.log(fiveDay.data);
     setFiveDayForecast(fiveDay.data);
   };
 
-  const handleClear = () => {
-    setCityResults([]);
-    // setDuplicateCountryCodes([]);
-    setNoResults(false);
-    setFinalList([]);
-    setCurrentWeather([]);
-    setCountry('');
-    setFiveDayForecast([]);
-    setHideResults(false);
+  const clearForNewSearch = () => {
+    // this is used in conjunction with the SearchComponent and ensures
+    // that weather details relating to a previous search are not still
+    // displayed in addition to the search results for a new search
+    setSelectedCity([]);
   };
 
-  useEffect(() => {
-    console.log('Use Effect');
-  });
+  const handleClear = () => {
+    // this function is passed to the SearchComponent
+    setSearchComplete(false);
+    setCitySearchedFor('');
+    setNoResults(false);
+    setCitySearchResults([]);
+    setFinalChoiceList([]);
+    setShowChoiceList(false);
+    setSelectedCity([]);
+    setCurrentWeather([]);
+    setFiveDayForecast([]);
+    setGetWeather(false);
+  };
+
+  const logAllState = (location, start) => {
+    let position;
+    start ? (position = 'start') : (position = 'end');
+    console.log(`---Showing state at ${position} of ${location}---`);
+    console.log('citySearchedFor: ' + citySearchedFor);
+    console.log('noResults: ' + noResults);
+    console.log('citySearchResults: ' + citySearchResults);
+    console.log('finalChoiceList: ' + finalChoiceList);
+    console.log('showChoiceList: ' + showChoiceList);
+    console.log('selectedCity: ' + selectedCity);
+    console.log('currentWeather: ' + currentWeather);
+    console.log('fiveDayForecast: ' + fiveDayForecast);
+  };
+
+  // log pre-render state
+  // logAllState('pre-render', true);
+
+  // call getChoiceList if we a search has been completed
+  if (searchComplete) {
+    getChoiceList(citySearchResults);
+  }
+
+  // call getCurrentWeather if ready
+  if (getWeather) {
+    getCurrentWeather(selectedCity);
+  }
 
   return (
     <div className='App'>
       <header className='header'>Weather Search</header>
       <SearchComponent
+        clearForNewSearch={clearForNewSearch}
         getCitySearchResults={getCitySearchResults}
         handleClear={handleClear}
       />
-      {!hideResults && (
-        <Results
-          cities={cityResults}
+
+      {showChoiceList && (
+        <ChoiceList
+          city={citySearchedFor}
+          cities={finalChoiceList}
           noResults={noResults}
-          getChoiceList={getChoiceList}
+          selectCity={selectCity}
         />
       )}
-      {finalList.length !== 0 && !hideResults && (
-        <ChoiceList cities={finalList} selectCity={selectCity} />
-      )}
-      {currentWeather.length !== 0 &&
-        country !== '' &&
-        fiveDayForecast.length !== 0 && (
+      {selectedCity.length !== 0 &&
+        currentWeather.length !== 0 &&
+        fiveDayForecast !== 0 && (
           <Weather
+            city={selectedCity}
             currentData={currentWeather}
-            country={country}
             fiveDay={fiveDayForecast}
           />
         )}
