@@ -78,6 +78,7 @@ const App = () => {
 
     // ************************************************
     // still need to remove duplicates from tempResults
+    // and order the results thereafter.
     // ************************************************
 
     // update the state
