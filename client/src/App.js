@@ -41,12 +41,11 @@ const App = () => {
     // clear this state here to stop continual searching as
     // this function is called every render if 'true'
     setSearchComplete(false);
-
+    console.log(cities);
     // set up empty array for results
     let tempResults = [];
 
     for (let i = 0; i < cities.length; i++) {
-      console.log(cities[i]);
       const latitude = cities[i].coord.lat;
       const longitude = cities[i].coord.lon;
       const result = await axios.get(
@@ -57,13 +56,19 @@ const App = () => {
       tempResults[i] = {
         id: cities[i].id,
         name: cities[i].name,
-        state:
-          result.data.Response.View[0].Result[0].Location.Address
-            .AdditionalData[1].value,
+        state: '',
         country:
           result.data.Response.View[0].Result[0].Location.Address
             .AdditionalData[0].value
       };
+      // some states are undefined (e.g. for Curacao!) so add appropriately
+      if (
+        result.data.Response.View[0].Result[0].Location.Address
+          .AdditionalData[1]
+      ) {
+        tempResults[i].state =
+          result.data.Response.View[0].Result[0].Location.Address.AdditionalData[1].value;
+      }
       // set county for uk locations
       if (tempResults[i].country === 'United Kingdom') {
         tempResults[i].state =
@@ -73,16 +78,54 @@ const App = () => {
       if (tempResults[i].name === tempResults[i].state) {
         tempResults[i].state = '';
       }
+      // remove state if it's the same as the country
+      if (tempResults[i].country === tempResults[i].state) {
+        tempResults[i].state = '';
+      }
       console.log(tempResults[i]);
     }
 
-    // ************************************************
-    // still need to remove duplicates from tempResults
-    // and order the results thereafter.
-    // ************************************************
-
+    // Remove duplicates
+    // set up new temporary array
+    let tempResults2 = [];
+    // No checking required if fewer than 2 cities found
+    if (tempResults.length < 2) {
+      tempResults2.push(tempResults[0]);
+    } else {
+      let duplicateIndices = [];
+      for (let i = 0; i < tempResults.length - 1; i++) {
+        for (let j = i + 1; j < tempResults.length; j++) {
+          if (
+            tempResults[i].state === tempResults[j].state &&
+            tempResults[i].country === tempResults[j].country
+          ) {
+            duplicateIndices.push(j);
+          }
+        }
+      }
+      // Now populate array with all original results except
+      // for those at any index in duplicateIndices
+      for (let i = 0; i < tempResults.length; i++) {
+        if (!duplicateIndices.includes(i)) {
+          tempResults2.push(tempResults[i]);
+        }
+      }
+    }
+    console.log(tempResults2);
+    // Now need to sort the results
+    tempResults2.sort((city1, city2) => {
+      // First sort alphabetically by country
+      if (city1.country > city2.country) return 1;
+      if (city1.country < city2.country) return -1;
+      // then sort by state if it exists
+      if (city1.state !== '' && city2.state !== '') {
+        if (city1.state > city2.state) return 1;
+        if (city1.state < city2.state) return -1;
+      }
+    });
+    console.log(tempResults2);
     // update the state
-    setFinalChoiceList(tempResults);
+    setFinalChoiceList(tempResults2);
     setShowChoiceList(true);
   };
 
