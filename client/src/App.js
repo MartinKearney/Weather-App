@@ -117,6 +117,7 @@ const App = () => {
 
     // Sorting function
     const citySort = inputArray => {
+      // eslint-disable-next-line
       inputArray.sort((city1, city2) => {
         // First sort alphabetically by country
         if (city1.country > city2.country) return 1;
