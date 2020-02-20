@@ -2,24 +2,21 @@ import React, { useState } from 'react';
 
 import './SearchComponent.css';
 
-const SearchComponent = ({
-  clearForNewSearch,
-  getCitySearchResults,
-  handleClear
-}) => {
+const SearchComponent = ({ getCitySearchResults, resetState }) => {
   const [text, setText] = useState('');
 
   const onChange = e => {
     setText(e.target.value);
     if (e.target.value === '') {
-      handleClear();
+      resetState();
     }
   };
 
   const onSubmit = e => {
     if (text) {
       e.preventDefault();
-      clearForNewSearch();
+      // clearForNewSearch();
+      resetState();
       const city = text;
       getCitySearchResults(city);
     }
@@ -27,7 +24,7 @@ const SearchComponent = ({
 
   const clearSearch = () => {
     setText('');
-    handleClear();
+    resetState();
   };
 
   return (

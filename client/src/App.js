@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import SearchComponent from './components/search/SearchComponent';
@@ -15,6 +15,7 @@ const App = () => {
   const [citySearchedFor, setCitySearchedFor] = useState('');
   const [searchComplete, setSearchComplete] = useState(false);
   const [noResults, setNoResults] = useState(false);
+  const [tooManyResults, setTooManyResults] = useState(false);
   const [citySearchResults, setCitySearchResults] = useState([]);
   const [finalChoiceList, setFinalChoiceList] = useState([]);
   const [showChoiceList, setShowChoiceList] = useState(false);
@@ -30,6 +31,9 @@ const App = () => {
     if (searchResults.data === 'No Results') {
       setNoResults(true);
       setCitySearchResults([]);
+    } else if (searchResults.data === 'Too Many') {
+      setTooManyResults(true);
+      setCitySearchResults([]);
     } else {
       setNoResults(false);
       setCitySearchResults(searchResults.data);
@@ -41,7 +45,7 @@ const App = () => {
     // clear this state here to stop continual searching as
     // this function is called every render if 'true'
     setSearchComplete(false);
-    console.log(cities);
+
     // set up empty array for results
     let tempResults = [];
 
@@ -69,8 +73,12 @@ const App = () => {
         tempResults[i].state =
           result.data.Response.View[0].Result[0].Location.Address.AdditionalData[1].value;
       }
-      // set county for uk locations
-      if (tempResults[i].country === 'United Kingdom') {
+      // set county as state for uk locations providing one exists
+      if (
+        tempResults[i].country === 'United Kingdom' &&
+        result.data.Response.View[0].Result[0].Location.Address
+          .AdditionalData[2]
+      ) {
         tempResults[i].state =
           result.data.Response.View[0].Result[0].Location.Address.AdditionalData[2].value;
       }
@@ -82,22 +90,69 @@ const App = () => {
       if (tempResults[i].country === tempResults[i].state) {
         tempResults[i].state = '';
       }
-      console.log(tempResults[i]);
     }
 
-    // Remove duplicates
+    // Now want to split into 3 arrays:
+    // 1. UK results matching exactly
+    // 2. Rest of world matching exactly
+    // 3. Partial matches from anywhere
+    let ukExact = [];
+    let restOfWorldExact = [];
+    let partialMatches = [];
+
+    if (tempResults[0] !== undefined) {
+      tempResults.forEach(city => {
+        if (
+          city.country === 'United Kingdom' &&
+          city.name.toUpperCase() === citySearchedFor.toUpperCase()
+        ) {
+          ukExact.push(city);
+        } else if (city.name.toUpperCase() === citySearchedFor.toUpperCase()) {
+          restOfWorldExact.push(city);
+        } else {
+          partialMatches.push(city);
+        }
+      });
+    }
+
+    // Sorting function
+    const citySort = inputArray => {
+      inputArray.sort((city1, city2) => {
+        // First sort alphabetically by country
+        if (city1.country > city2.country) return 1;
+        if (city1.country < city2.country) return -1;
+        // then sort by state if it exists
+        if (city1.state !== '' && city2.state !== '') {
+          if (city1.state > city2.state) return 1;
+          if (city1.state < city2.state) return -1;
+        }
+      });
+    };
+
+    // Now sort each of the three sub arrays
+    citySort(ukExact);
+    citySort(restOfWorldExact);
+    citySort(partialMatches);
+
+    // Now merge back together again
+    let tempResults2 = [...ukExact, ...restOfWorldExact, ...partialMatches];
+
+    // Now remove duplicates i.e. those with same state and country or those
+    // whose city name due to partial matching is equal to the name of
+    // the searched for city's state
     // set up new temporary array
-    let tempResults2 = [];
+    let tempResults3 = [];
     // No checking required if fewer than 2 cities found
-    if (tempResults.length < 2) {
-      tempResults2.push(tempResults[0]);
+    if (tempResults2.length < 2) {
+      tempResults3.push(tempResults2[0]);
     } else {
       let duplicateIndices = [];
-      for (let i = 0; i < tempResults.length - 1; i++) {
-        for (let j = i + 1; j < tempResults.length; j++) {
+      for (let i = 0; i < tempResults2.length - 1; i++) {
+        for (let j = i + 1; j < tempResults2.length; j++) {
           if (
-            tempResults[i].state === tempResults[j].state &&
-            tempResults[i].country === tempResults[j].country
+            tempResults2[i].country === tempResults2[j].country &&
+            (tempResults2[i].state === tempResults2[j].state ||
+              tempResults2[i].state === tempResults2[j].name)
           ) {
             duplicateIndices.push(j);
           }
@@ -105,27 +160,15 @@ const App = () => {
       }
       // Now populate array with all original results except
       // for those at any index in duplicateIndices
-      for (let i = 0; i < tempResults.length; i++) {
+      for (let i = 0; i < tempResults2.length; i++) {
         if (!duplicateIndices.includes(i)) {
-          tempResults2.push(tempResults[i]);
+          tempResults3.push(tempResults2[i]);
         }
       }
     }
-    console.log(tempResults2);
-    // Now need to sort the results
-    tempResults2.sort((city1, city2) => {
-      // First sort alphabetically by country
-      if (city1.country > city2.country) return 1;
-      if (city1.country < city2.country) return -1;
-      // then sort by state if it exists
-      if (city1.state !== '' && city2.state !== '') {
-        if (city1.state > city2.state) return 1;
-        if (city1.state < city2.state) return -1;
-      }
-    });
-    console.log(tempResults2);
+
     // update the state
-    setFinalChoiceList(tempResults2);
+    setFinalChoiceList(tempResults3);
     setShowChoiceList(true);
   };
 
@@ -163,18 +206,12 @@ const App = () => {
     setFiveDayForecast(fiveDay.data);
   };
 
-  const clearForNewSearch = () => {
-    // this is used in conjunction with the SearchComponent and ensures
-    // that weather details relating to a previous search are not still
-    // displayed in addition to the search results for a new search
-    setSelectedCity([]);
-  };
-
-  const handleClear = () => {
+  const resetState = () => {
     // this function is passed to the SearchComponent
     setSearchComplete(false);
     setCitySearchedFor('');
     setNoResults(false);
+    setTooManyResults(false);
     setCitySearchResults([]);
     setFinalChoiceList([]);
     setShowChoiceList(false);
@@ -184,24 +221,7 @@ const App = () => {
     setGetWeather(false);
   };
 
-  const logAllState = (location, start) => {
-    let position;
-    start ? (position = 'start') : (position = 'end');
-    console.log(`---Showing state at ${position} of ${location}---`);
-    console.log('citySearchedFor: ' + citySearchedFor);
-    console.log('noResults: ' + noResults);
-    console.log('citySearchResults: ' + citySearchResults);
-    console.log('finalChoiceList: ' + finalChoiceList);
-    console.log('showChoiceList: ' + showChoiceList);
-    console.log('selectedCity: ' + selectedCity);
-    console.log('currentWeather: ' + currentWeather);
-    console.log('fiveDayForecast: ' + fiveDayForecast);
-  };
-
-  // log pre-render state
-  // logAllState('pre-render', true);
-
-  // call getChoiceList if we a search has been completed
+  // call getChoiceList if a search has been completed
   if (searchComplete) {
     getChoiceList(citySearchResults);
   }
@@ -215,9 +235,8 @@ const App = () => {
     <div className='App'>
       <header className='header'>Weather Search</header>
       <SearchComponent
-        clearForNewSearch={clearForNewSearch}
         getCitySearchResults={getCitySearchResults}
-        handleClear={handleClear}
+        resetState={resetState}
       />
 
       {showChoiceList && (
@@ -225,6 +244,7 @@ const App = () => {
           city={citySearchedFor}
           cities={finalChoiceList}
           noResults={noResults}
+          tooManyResults={tooManyResults}
           selectCity={selectCity}
         />
       )}

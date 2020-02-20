@@ -5,19 +5,32 @@ const router = express.Router();
 const cityListObject = require('../city-list.json');
 const cityList = cityListObject.cities;
 
+const resultsLimit = 20;
+
 // @route       GET /:city
 // @desc        Return array of matching cities
 router.get('/:city', async (req, res) => {
   try {
     console.log(`City searched for: ${req.params.city}`);
 
+    // Filtering is not good enough - need to match all cities
+    // that start with what the user searches for c.f. nagoya-shi
+
     // filter city list for matches
-    const foundCities = cityList.filter(elt =>
-      compare(elt.name, req.params.city)
+    const foundCities = cityList.filter(
+      // elt => compare(elt.name, req.params.city)
+      // Will the line below work???? Yes....but!
+      elt => elt.name.toUpperCase().startsWith(req.params.city.toUpperCase())
     );
 
+    if (foundCities.length > resultsLimit) {
+      console.log(`Too Many: ${foundCities.length}`);
+
+      res.json('Too Many');
+    }
+
     // catch the case of no results here
-    if (foundCities.length === 0) {
+    else if (foundCities.length === 0) {
       res.json('No Results');
     } else {
       // // form array of all country codes

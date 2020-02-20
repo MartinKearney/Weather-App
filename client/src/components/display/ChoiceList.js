@@ -2,7 +2,13 @@ import React from 'react';
 
 import ChoiceItem from './ChoiceItem';
 
-const ChoiceList = ({ city, cities, noResults, selectCity }) => {
+const ChoiceList = ({
+  city,
+  cities,
+  noResults,
+  tooManyResults,
+  selectCity
+}) => {
   // console.log('Hello from choice list');
   // console.log(cities);
   const totalResults = cities.length;
@@ -11,6 +17,13 @@ const ChoiceList = ({ city, cities, noResults, selectCity }) => {
     return (
       <div>
         <p>No results found for "{city}"</p>
+      </div>
+    );
+  } else if (tooManyResults) {
+    return (
+      <div>
+        <p>Too many results found for "{city}"</p>
+        <p>Please be more specific with your search</p>
       </div>
     );
   } else {
