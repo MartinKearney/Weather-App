@@ -11,7 +11,6 @@ import './App.css';
 const App = () => {
   // set up state using useState hook
   const [loading, setLoading] = useState(false);
-
   const [citySearchedFor, setCitySearchedFor] = useState('');
   const [searchComplete, setSearchComplete] = useState(false);
   const [noResults, setNoResults] = useState(false);
@@ -25,6 +24,7 @@ const App = () => {
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
 
   const getCitySearchResults = async cityName => {
+    setLoading(true);
     const searchResults = await axios.get(`/findcities/${cityName}`);
     // Update state
     setCitySearchedFor(cityName);
@@ -38,6 +38,7 @@ const App = () => {
       setNoResults(false);
       setCitySearchResults(searchResults.data);
     }
+    // setLoading(false);
     setSearchComplete(true);
   };
 
@@ -45,7 +46,7 @@ const App = () => {
     // clear this state here to stop continual searching as
     // this function is called every render if 'true'
     setSearchComplete(false);
-
+    // setLoading(true);
     // set up empty array for results
     let tempResults = [];
 
@@ -170,6 +171,7 @@ const App = () => {
 
     // update the state
     setFinalChoiceList(tempResults3);
+    setLoading(false);
     setShowChoiceList(true);
   };
 
@@ -209,6 +211,7 @@ const App = () => {
 
   const resetState = () => {
     // this function is passed to the SearchComponent
+    setLoading(false);
     setSearchComplete(false);
     setCitySearchedFor('');
     setNoResults(false);
@@ -239,6 +242,8 @@ const App = () => {
         getCitySearchResults={getCitySearchResults}
         resetState={resetState}
       />
+
+      {loading && <Spinner />}
 
       {showChoiceList && (
         <ChoiceList

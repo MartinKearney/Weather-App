@@ -10,7 +10,9 @@ const Weather = ({ city, currentData, fiveDay }) => {
   return (
     <div>
       <p>
-        Showing weather for {name} - {state}, {country}
+        Showing weather for {name} - {state}
+        {state === '' ? '' : ', '}
+        {country}
       </p>
       <CurrentWeather data={currentData} />
       <p>--------------------------------</p>
