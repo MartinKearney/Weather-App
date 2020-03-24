@@ -13,13 +13,9 @@ router.get('/:city', async (req, res) => {
   try {
     console.log(`City searched for: ${req.params.city}`);
 
-    // Filtering is not good enough - need to match all cities
-    // that start with what the user searches for c.f. nagoya-shi
-
     // filter city list for matches
     const foundCities = cityList.filter(
       // elt => compare(elt.name, req.params.city)
-      // Will the line below work???? Yes....but!
       elt => elt.name.toUpperCase().startsWith(req.params.city.toUpperCase())
     );
 
