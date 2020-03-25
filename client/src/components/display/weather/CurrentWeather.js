@@ -5,33 +5,66 @@ import {
   fahrToCels,
   degToDirection,
   getWeekday,
-  getHourTime12
+  getHourTime12,
+  capitalizeFirstLetter
 } from '../../utils/helpers';
 
 const CurrentWeather = ({ data }) => {
   console.log(data);
 
-  const { name, sys, main, weather, wind, dt } = data;
+  const { name, sys, main, weather, wind, dt, timezone } = data;
 
-  const summary = weather[0].description;
+  const summary = capitalizeFirstLetter(weather[0].description);
   const currentTemp = round(fahrToCels(main.temp), 1);
   const currentWindSpeed = round(wind.speed, 1);
   const currentWindDirection = degToDirection(wind.deg);
+  const currentHumidity = Math.round(main.humidity);
+  const currentPressure = Math.round(main.pressure);
+  const currentTimeStamp = dt + timezone;
+  // console.log(currentTimeStamp);
 
-  console.log('Temp: ' + currentTemp);
+  // create date object from time stamp
+  const dateObj = new Date(currentTimeStamp * 1000);
+  const utcString = dateObj.toUTCString();
+  // console.log(utcString);
+  // take 12th and 11th last characters of string to get hour in 24hr clock
+  const hourString = utcString.slice(-12, -10);
+  // convert to integer
+  const obsHour24 = parseInt(hourString);
+  // console.log(obsHour24);
+  // convert to 12 hour time
+  let obsHour;
+  if (obsHour24 > 12) {
+    obsHour = obsHour24 - 12 + 'pm';
+  } else if (obsHour24 === 12) {
+    obsHour = '12pm';
+  } else if (obsHour24 === 0) {
+    obsHour = '12am';
+  } else {
+    obsHour = obsHour24 + 'am';
+  }
 
-  // console.log('Day: ' + getWeekday(dt));
-  // console.log('Time: ' + getHourTime12(dt));
-  // console.log(new Date(dt));
+  // Get day of latest observation
+  const dayOfObs = utcString.slice(0, 3);
+  // console.log(obsHour);
 
   return (
     <div>
       <p>Current</p>
+      <p>
+        Observed: {dayOfObs} {obsHour}
+      </p>
+      <img
+        src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
+        alt='{weather[0].description}'
+      />
       <p>{summary}</p>
       <p>Temp: {currentTemp}&#176;C</p>
       <p>
         Wind: {currentWindSpeed} mph {currentWindDirection}
       </p>
+      <p>Humidity: {currentHumidity}%</p>
+      <p>Pressure: {currentPressure}mb</p>
     </div>
   );
 };
