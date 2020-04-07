@@ -3,7 +3,8 @@
 }
 
 .App {
-  text-align: center;
+  border: 2px solid black;
+  /* text-align: center;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -11,11 +12,16 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: white; */
 }
 
 .header {
+  font-size: 4rem;
+  text-align: center;
   text-decoration: underline;
+  margin: 20vh 0 2rem;
+  /* margin-top: 20vh;
+  margin-bottom: 2rem; */
 }
 
 /* .App-header {

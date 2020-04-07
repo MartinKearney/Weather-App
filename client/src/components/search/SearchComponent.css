@@ -1,0 +1,36 @@
+.search-component {
+  border: 1px solid #00f;
+}
+
+.form {
+  margin: 0 auto;
+  border: 1px solid #999;
+  max-width: 60vw;
+}
+
+.search-field {
+  width: 100%;
+  border: 2px solid #000;
+  font-size: 3rem;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.buttons * {
+  font-size: 2rem;
+  width: 80%;
+  justify-self: center;
+  margin: 1rem 0;
+  border: 2px solid #000;
+}
+
+.search-button {
+  background-color: deepskyblue;
+}
+
+.clear {
+  background-color: orangered;
+}

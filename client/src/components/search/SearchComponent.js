@@ -5,14 +5,14 @@ import './SearchComponent.css';
 const SearchComponent = ({ getCitySearchResults, resetState }) => {
   const [text, setText] = useState('');
 
-  const onChange = e => {
+  const onChange = (e) => {
     setText(e.target.value);
     if (e.target.value === '') {
       resetState();
     }
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     if (text) {
       e.preventDefault();
       // clearForNewSearch();
@@ -28,7 +28,7 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
   };
 
   return (
-    <div>
+    <div className='search-component'>
       <form onSubmit={onSubmit} className='form'>
         <input
           className='search-field'
@@ -39,15 +39,17 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
           value={text}
           onChange={onChange}
         />
-        <input
-          className='search-button'
-          type='submit'
-          value='Search'
-          // className='btn btn-dark btn-block'
-        />
-        <button className='clear' onClick={clearSearch} disabled={!text}>
-          Clear
-        </button>
+        <section className='buttons'>
+          <input
+            className='search-button'
+            type='submit'
+            value='Search'
+            // className='btn btn-dark btn-block'
+          />
+          <button className='clear' onClick={clearSearch} disabled={!text}>
+            Clear
+          </button>
+        </section>
       </form>
     </div>
   );
