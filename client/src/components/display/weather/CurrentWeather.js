@@ -6,8 +6,10 @@ import {
   degToDirection,
   getWeekday,
   getHourTime12,
-  capitalizeFirstLetter
+  capitalizeFirstLetter,
 } from '../../utils/helpers';
+
+import './CurrentWeather.css';
 
 const CurrentWeather = ({ data }) => {
   console.log(data);
@@ -49,22 +51,29 @@ const CurrentWeather = ({ data }) => {
   // console.log(obsHour);
 
   return (
-    <div>
-      <p>Current</p>
-      <p>
-        Observed: {dayOfObs} {obsHour}
-      </p>
-      <img
-        src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
-        alt='{weather[0].description}'
-      />
-      <p>{summary}</p>
-      <p>Temp: {currentTemp}&#176;C</p>
-      <p>
-        Wind: {currentWindSpeed} mph {currentWindDirection}
-      </p>
-      <p>Humidity: {currentHumidity}%</p>
-      <p>Pressure: {currentPressure}mb</p>
+    <div className='current-weather'>
+      <div className='current-weather__display'>
+        <div className='current-weather__display--image'>
+          <img
+            src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
+            alt='{weather[0].description}'
+          />
+          <p>{summary}</p>
+        </div>
+        <div className='current-weather__display--details'>
+          <p>Temp: {currentTemp}&#176;C</p>
+          <p>
+            Wind: {currentWindSpeed} mph {currentWindDirection}
+          </p>
+          <p>Humidity: {currentHumidity}%</p>
+          <p>Pressure: {currentPressure}mb</p>
+        </div>
+      </div>
+      <div className='current-weather__sub'>
+        <p>
+          Observed: {dayOfObs} {obsHour}
+        </p>
+      </div>
     </div>
   );
 };

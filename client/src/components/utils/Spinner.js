@@ -6,7 +6,7 @@ const Spinner = () => (
     <img
       src={spinner}
       alt='Loading...'
-      style={{ width: '15%', margin: '0', display: 'block' }}
+      style={{ width: '15%', margin: '0 auto', display: 'block' }}
     />
   </Fragment>
 );

@@ -1,0 +1,10 @@
+.weather > p {
+  font-size: 2rem;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.weather-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

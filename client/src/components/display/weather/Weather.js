@@ -8,15 +8,17 @@ import './Weather.css';
 const Weather = ({ city, currentData, fiveDay }) => {
   const { name, state, country } = city;
   return (
-    <div>
+    <div className='weather'>
       <p>
         Showing weather for {name} - {state}
         {state === '' ? '' : ', '}
         {country}
       </p>
-      <CurrentWeather data={currentData} />
-      <p>--------------------------------</p>
-      <FiveDay data={fiveDay} />
+      <div className='weather-display'>
+        <CurrentWeather data={currentData} />
+
+        <FiveDay data={fiveDay} />
+      </div>
     </div>
   );
 };

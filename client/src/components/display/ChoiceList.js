@@ -2,12 +2,14 @@ import React from 'react';
 
 import ChoiceItem from './ChoiceItem';
 
+import './ChoiceList.css';
+
 const ChoiceList = ({
   city,
   cities,
   noResults,
   tooManyResults,
-  selectCity
+  selectCity,
 }) => {
   // console.log('Hello from choice list');
   // console.log(cities);
@@ -15,27 +17,35 @@ const ChoiceList = ({
 
   if (noResults) {
     return (
-      <div>
-        <p>No results found for "{city}"</p>
+      <div className='choice-list'>
+        <div className='choice-list__header'>
+          <p>No results found for "{city}"</p>
+        </div>
       </div>
     );
   } else if (tooManyResults) {
     return (
-      <div>
-        <p>Too many results found for "{city}"</p>
-        <p>Please be more specific with your search</p>
+      <div className='choice-list'>
+        <div className='choice-list__header'>
+          <p>Too many results found for "{city}"</p>
+          <p>Please be more specific with your search</p>
+        </div>
       </div>
     );
   } else {
     return (
-      <div>
-        <p>
-          Found {totalResults} result{totalResults > 1 ? 's' : null} for "{city}
-          "
-        </p>
-        {cities.map((city, idx) => (
-          <ChoiceItem key={idx} city={city} selectCity={selectCity} />
-        ))}
+      <div className='choice-list'>
+        <div className='choice-list__header'>
+          <p>
+            Found {totalResults} result{totalResults > 1 ? 's' : null} for "
+            {city}"
+          </p>
+        </div>
+        <div className='choice-list__list'>
+          {cities.map((city, idx) => (
+            <ChoiceItem key={idx} city={city} selectCity={selectCity} />
+          ))}
+        </div>
       </div>
     );
   }

@@ -1,0 +1,42 @@
+.current-weather {
+  border: 2px solid red;
+}
+
+.current-weather__display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.current-weather__display div {
+  width: 90%;
+  margin: 0 auto;
+  font-size: 1.2rem;
+}
+
+.current-weather__display--image {
+  border: 1px solid #000;
+  text-align: center;
+}
+
+.current-weather__display--image > img {
+  border: 1px solid #000;
+  width: 80%;
+}
+
+.current-weather__display--image p {
+  margin: 0;
+}
+.current-weather__display--details {
+  border: 1px solid #000;
+  padding-left: 10%;
+  align-self: center;
+}
+
+.current-weather__sub {
+  text-align: center;
+}
+
+.current-weather__sub p {
+  font-size: 0.8rem;
+  margin: 1%;
+}
