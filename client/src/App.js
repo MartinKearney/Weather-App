@@ -23,7 +23,7 @@ const App = () => {
   const [currentWeather, setCurrentWeather] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
 
-  const getCitySearchResults = async cityName => {
+  const getCitySearchResults = async (cityName) => {
     setLoading(true);
     const searchResults = await axios.get(`/findcities/${cityName}`);
     // Update state
@@ -42,7 +42,7 @@ const App = () => {
     setSearchComplete(true);
   };
 
-  const getChoiceList = async cities => {
+  const getChoiceList = async (cities) => {
     // clear this state here to stop continual searching as
     // this function is called every render if 'true'
     setSearchComplete(false);
@@ -64,7 +64,7 @@ const App = () => {
         state: '',
         country:
           result.data.Response.View[0].Result[0].Location.Address
-            .AdditionalData[0].value
+            .AdditionalData[0].value,
       };
       // some states are undefined (e.g. for Curacao!) so add appropriately
       if (
@@ -102,7 +102,7 @@ const App = () => {
     let partialMatches = [];
 
     if (tempResults[0] !== undefined) {
-      tempResults.forEach(city => {
+      tempResults.forEach((city) => {
         if (
           city.country === 'United Kingdom' &&
           city.name.toUpperCase() === citySearchedFor.toUpperCase()
@@ -117,7 +117,7 @@ const App = () => {
     }
 
     // Sorting function
-    const citySort = inputArray => {
+    const citySort = (inputArray) => {
       // eslint-disable-next-line
       inputArray.sort((city1, city2) => {
         // First sort alphabetically by country
@@ -175,7 +175,7 @@ const App = () => {
     setShowChoiceList(true);
   };
 
-  const selectCity = city => {
+  const selectCity = (city) => {
     // first hide the list of choice
     setShowChoiceList(false);
 
@@ -186,7 +186,7 @@ const App = () => {
     setGetWeather(true);
   };
 
-  const getCurrentWeather = async city => {
+  const getCurrentWeather = async (city) => {
     // reset this to false to prevent repeated calls to api as this function
     // is called every render if getWeather is 'true'
     setGetWeather(false);
@@ -201,7 +201,7 @@ const App = () => {
     getFiveDayForecast(city.id);
   };
 
-  const getFiveDayForecast = async id => {
+  const getFiveDayForecast = async (id) => {
     const fiveDay = await axios.get(
       `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=Imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
     );
@@ -256,7 +256,7 @@ const App = () => {
       )}
       {selectedCity.length !== 0 &&
         currentWeather.length !== 0 &&
-        fiveDayForecast !== 0 && (
+        fiveDayForecast.length !== 0 && (
           <Weather
             city={selectedCity}
             currentData={currentWeather}

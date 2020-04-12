@@ -3,11 +3,11 @@ export const round = (val, prec) => {
   return Math.round(val * multiplier) / multiplier;
 };
 
-export const fahrToCels = fahr => {
+export const fahrToCels = (fahr) => {
   return ((fahr - 32) * 5) / 9;
 };
 
-export const degToDirection = deg => {
+export const degToDirection = (deg) => {
   switch (true) {
     case deg > 337.5 || deg <= 22.5:
       return 'N';
@@ -30,7 +30,7 @@ export const degToDirection = deg => {
   }
 };
 
-export const getWeekday = dateTime => {
+export const getWeekday = (dateTime) => {
   const dt = new Date(dateTime);
   const dayInt = dt.getDay();
   switch (true) {
@@ -53,7 +53,28 @@ export const getWeekday = dateTime => {
   }
 };
 
-export const getHourTime12 = dateTime => {
+export const getNextDay = (day) => {
+  switch (true) {
+    case day === 'Sat':
+      return 'Sun';
+    case day === 'Sun':
+      return 'Mon';
+    case day === 'Mon':
+      return 'Tue';
+    case day === 'Tue':
+      return 'Wed';
+    case day === 'Wed':
+      return 'Thu';
+    case day === 'Thu':
+      return 'Fri';
+    case day === 'Fri':
+      return 'Sat';
+    default:
+      return 'Error';
+  }
+};
+
+export const getHourTime12 = (dateTime) => {
   // obtains the time in hours from input in 12 hour clock
   const dt = new Date(dateTime);
   const hour = dt.getHours();
@@ -79,7 +100,21 @@ export const getHourTime12 = dateTime => {
   }
 };
 
-export const capitalizeFirstLetter = s => {
+export const capitalizeFirstLetter = (s) => {
   if (typeof s !== 'string') return '';
   return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
+export const getHourTime = (h) => {
+  let hourTime;
+  if (h > 12) {
+    hourTime = h - 12 + 'pm';
+  } else if (h === 12) {
+    hourTime = '12pm';
+  } else if (h === 0) {
+    hourTime = '12am';
+  } else {
+    hourTime = h + 'am';
+  }
+  return hourTime;
 };

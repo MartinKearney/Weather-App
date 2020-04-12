@@ -5,7 +5,7 @@ import {
   fahrToCels,
   degToDirection,
   getWeekday,
-  getHourTime12,
+  getHourTime,
   capitalizeFirstLetter,
 } from '../../utils/helpers';
 
@@ -35,16 +35,19 @@ const CurrentWeather = ({ data }) => {
   const obsHour24 = parseInt(hourString);
   // console.log(obsHour24);
   // convert to 12 hour time
-  let obsHour;
-  if (obsHour24 > 12) {
-    obsHour = obsHour24 - 12 + 'pm';
-  } else if (obsHour24 === 12) {
-    obsHour = '12pm';
-  } else if (obsHour24 === 0) {
-    obsHour = '12am';
-  } else {
-    obsHour = obsHour24 + 'am';
-  }
+
+  const obsHour = getHourTime(obsHour24);
+
+  // let obsHour;
+  // if (obsHour24 > 12) {
+  //   obsHour = obsHour24 - 12 + 'pm';
+  // } else if (obsHour24 === 12) {
+  //   obsHour = '12pm';
+  // } else if (obsHour24 === 0) {
+  //   obsHour = '12am';
+  // } else {
+  //   obsHour = obsHour24 + 'am';
+  // }
 
   // Get day of latest observation
   const dayOfObs = utcString.slice(0, 3);
