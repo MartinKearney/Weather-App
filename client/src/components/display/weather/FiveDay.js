@@ -33,19 +33,43 @@ const FiveDay = ({ data }) => {
   // If the hour string is 0, 1 or 2 then we have a
   // span of five days, otherwise we have six
   const fiveDaySpan = firstHour === 0 || firstHour === 1 || firstHour === 2;
-  console.log(fiveDaySpan);
-  console.log(firstHour);
+  let span = 5;
+  if (!fiveDaySpan) {
+    span = 6;
+  }
+  console.log(span + ' days');
+  console.log('First hour ' + firstHour);
 
   // Want day of first forecast item
   const firstDay = utcString.slice(0, 3);
-  console.log(firstDay);
-  let nextDay = getNextDay(firstDay);
-  console.log(nextDay);
+  console.log('First day ' + firstDay);
+  // let nextDay = getNextDay(firstDay);
+  // console.log(nextDay);
 
-  // Now set up arrays for each day represented
+  // Now set up array of day names for labels
+  let days = [];
+  days.push(firstDay);
+  for (let i = 0; i < span - 1; i++) {
+    days.push(getNextDay(days[i]));
+  }
+  console.log(days);
 
   //******************************
-  return <div className='five-day'>5 day</div>;
+  return (
+    <div className='five-day'>
+      <div className='five-day__side-labels'>
+        <label id='0'>{days[0]}</label>
+        <label id='1'>{days[1]}</label>
+        <label id='2'>{days[2]}</label>
+        <label id='3'>{days[3]}</label>
+        <label id='4'>{days[4]}</label>
+        {!fiveDaySpan ? <label id='5'>{days[5]}</label> : null}
+      </div>
+      <div className='five-day__weather-display'>
+        <div className='five-day__weather-display-day'></div>
+      </div>
+    </div>
+  );
 };
 
 export default FiveDay;
