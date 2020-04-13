@@ -2,6 +2,30 @@
   border: 1px solid #369;
 }
 
-.empty {
-  background: #cc5;
+.tab-item__empty {
+  border: 1px solid #369;
+  background: #333;
+}
+
+.tab-item__item {
+  border: 1px solid #369;
+  /* display: flex;
+  flex-direction: column;
+  flex-grow: 1; */
+  font-size: 0.6rem;
+}
+
+.tab-item__head {
+  text-decoration: underline;
+}
+
+p {
+  text-align: center;
+}
+
+img {
+  display: block;
+  border: 1px solid #000;
+  width: 50%;
+  margin: 0 auto;
 }
