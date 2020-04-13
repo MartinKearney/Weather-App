@@ -8,6 +8,7 @@ import {
   degToDirection,
   getHourTime,
   getNextDay,
+  setFiveDayObject,
 } from '../../utils/helpers';
 
 const FiveDay = ({ data }) => {
@@ -46,13 +47,75 @@ const FiveDay = ({ data }) => {
   // let nextDay = getNextDay(firstDay);
   // console.log(nextDay);
 
-  // Now set up array of day names for labels
+  // Now set up array of day names for tab labels
   let days = [];
   days.push(firstDay);
   for (let i = 0; i < span - 1; i++) {
     days.push(getNextDay(days[i]));
   }
   console.log(days);
+
+  // Now set up the 5 or 6 arrays to hold the weather
+  // data for each particular day.
+  // First set an array to hold all the weather items
+  // this array will either stay at size 40 or go to 48
+  // in either case it will be split into blocks of 8
+  // depending on the span
+  const fiveDayArray = [];
+
+  // Now get the 40 weather items
+  let timeStamp = firstHour - 3;
+  for (let i = 0; i < 40; i++) {
+    timeStamp += 3;
+    if (timeStamp > 23) {
+      timeStamp -= 24;
+    }
+    let time = getHourTime(timeStamp);
+    let temp = round(fahrToCels(list[i].main.temp), 1);
+    let icon = list[i].weather[0].icon;
+    let windSpeed = round(list[i].wind.speed, 1);
+    let windDir = degToDirection(list[i].wind.deg);
+    let wind = `${windSpeed} mph ${windDir}`;
+    // make an object from desired data above
+    // and push to array
+    fiveDayArray.push(setFiveDayObject(time, icon, temp, wind));
+  }
+
+  // Now, for a span of 6, need to determine how many empty
+  // objects to insert at the beginning and end of the array
+  if (span === 6) {
+    const before = Math.floor(firstHour / 3);
+    const after = 8 - before;
+    // create empty object
+    const empty = {};
+    // add empties to front
+    for (let i = 0; i < before; i++) {
+      fiveDayArray.unshift(empty);
+    }
+    // add empties to back
+    for (let i = 0; i < after; i++) {
+      fiveDayArray.push(empty);
+    }
+  }
+
+  console.log(fiveDayArray);
+  // Now split array into blocks of 8
+  const day1 = fiveDayArray.slice(0, 8);
+  const day2 = fiveDayArray.slice(8, 16);
+  const day3 = fiveDayArray.slice(16, 24);
+  const day4 = fiveDayArray.slice(24, 32);
+  const day5 = fiveDayArray.slice(32, 40);
+  let day6 = [];
+  if (span === 6) {
+    day6 = fiveDayArray.slice(40);
+  }
+
+  console.log(day1);
+  console.log(day2);
+  console.log(day3);
+  console.log(day4);
+  console.log(day5);
+  console.log(day6);
 
   //******************************
   return (
@@ -65,9 +128,7 @@ const FiveDay = ({ data }) => {
         <label id='4'>{days[4]}</label>
         {!fiveDaySpan ? <label id='5'>{days[5]}</label> : null}
       </div>
-      <div className='five-day__weather-display'>
-        <div className='five-day__weather-display-day'></div>
-      </div>
+      <div className='five-day__weather-display'></div>
     </div>
   );
 };

@@ -118,3 +118,7 @@ export const getHourTime = (h) => {
   }
   return hourTime;
 };
+
+export const setFiveDayObject = (ti, ic, te, wi) => {
+  return { time: ti, icon: ic, temp: te, wind: wi };
+};
