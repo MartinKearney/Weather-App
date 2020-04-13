@@ -122,13 +122,31 @@ const FiveDay = ({ data }) => {
   // click handler for labels
   const openDay = (e) => {
     console.log(e.target.innerHTML);
+    const dayName = e.target.innerHTML;
+
+    // Get all elements with class="tabcontent" and hide them
+    const tabcontent = document.getElementsByClassName('tabcontent');
+    console.log(tabcontent);
+    for (let i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none';
+    }
+
+    // Get all elements with class="tablink" and remove the class "active"
+    const tablinks = document.getElementsByClassName('tablink');
+    for (let i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '');
+    }
+
+    // Show the current tab, and add an "active" class to the link that opened the tab
+    document.getElementById(dayName).style.display = 'block';
+    e.currentTarget.className += ' active';
   };
 
   //******************************
   return (
     <div className='five-day'>
       <div className='five-day__side-labels'>
-        <label className='tablink' onClick={openDay}>
+        <label className='tablink active' onClick={openDay}>
           {days[0]}
         </label>
         <label className='tablink' onClick={openDay}>
@@ -150,26 +168,26 @@ const FiveDay = ({ data }) => {
         ) : null}
       </div>
       <div className='five-day__weather-display'>
-        <div id='day1' className='tabcontent'>
+        <div id={days[0]} className='tabcontent' style={{ display: 'block' }}>
           <FiveDayTab data={day1} />
         </div>
-        {/* <div id='day2' className='tabcontent'>
+        <div id={days[1]} className='tabcontent'>
           <FiveDayTab data={day2} />
         </div>
-        <div id='day3' className='tabcontent'>
+        <div id={days[2]} className='tabcontent'>
           <FiveDayTab data={day3} />
         </div>
-        <div id='day4' className='tabcontent'>
+        <div id={days[3]} className='tabcontent'>
           <FiveDayTab data={day4} />
         </div>
-        <div id='day5' className='tabcontent'>
+        <div id={days[4]} className='tabcontent'>
           <FiveDayTab data={day5} />
         </div>
         {span === 6 ? (
-          <div id='day6' className='tabcontent'>
+          <div id={days[5]} className='tabcontent'>
             <FiveDayTab data={day6} />
           </div>
-        ) : null} */}
+        ) : null}
       </div>
     </div>
   );
