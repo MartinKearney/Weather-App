@@ -1,5 +1,7 @@
 import React from 'react';
 
+import FiveDayTab from './FiveDayTab';
+
 import './FiveDay.css';
 
 import {
@@ -87,14 +89,14 @@ const FiveDay = ({ data }) => {
     const before = Math.floor(firstHour / 3);
     const after = 8 - before;
     // create empty object
-    const empty = {};
-    // add empties to front
+    const dummy = { time: 99 };
+    // add dummies to front
     for (let i = 0; i < before; i++) {
-      fiveDayArray.unshift(empty);
+      fiveDayArray.unshift(dummy);
     }
-    // add empties to back
+    // add dummies to back
     for (let i = 0; i < after; i++) {
-      fiveDayArray.push(empty);
+      fiveDayArray.push(dummy);
     }
   }
 
@@ -117,18 +119,58 @@ const FiveDay = ({ data }) => {
   console.log(day5);
   console.log(day6);
 
+  // click handler for labels
+  const openDay = (e) => {
+    console.log(e.target.innerHTML);
+  };
+
   //******************************
   return (
     <div className='five-day'>
       <div className='five-day__side-labels'>
-        <label id='0'>{days[0]}</label>
-        <label id='1'>{days[1]}</label>
-        <label id='2'>{days[2]}</label>
-        <label id='3'>{days[3]}</label>
-        <label id='4'>{days[4]}</label>
-        {!fiveDaySpan ? <label id='5'>{days[5]}</label> : null}
+        <label className='tablink' onClick={openDay}>
+          {days[0]}
+        </label>
+        <label className='tablink' onClick={openDay}>
+          {days[1]}
+        </label>
+        <label className='tablink' onClick={openDay}>
+          {days[2]}
+        </label>
+        <label className='tablink' onClick={openDay}>
+          {days[3]}
+        </label>
+        <label className='tablink' onClick={openDay}>
+          {days[4]}
+        </label>
+        {!fiveDaySpan ? (
+          <label className='tablink' onClick={openDay}>
+            {days[5]}
+          </label>
+        ) : null}
       </div>
-      <div className='five-day__weather-display'></div>
+      <div className='five-day__weather-display'>
+        <div id='day1' className='tabcontent'>
+          <FiveDayTab data={day1} />
+        </div>
+        {/* <div id='day2' className='tabcontent'>
+          <FiveDayTab data={day2} />
+        </div>
+        <div id='day3' className='tabcontent'>
+          <FiveDayTab data={day3} />
+        </div>
+        <div id='day4' className='tabcontent'>
+          <FiveDayTab data={day4} />
+        </div>
+        <div id='day5' className='tabcontent'>
+          <FiveDayTab data={day5} />
+        </div>
+        {span === 6 ? (
+          <div id='day6' className='tabcontent'>
+            <FiveDayTab data={day6} />
+          </div>
+        ) : null} */}
+      </div>
     </div>
   );
 };
