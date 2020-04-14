@@ -2,6 +2,7 @@
   border: 1px solid var(--dark-blue);
   margin: 0;
   padding: 0.2rem 0.6rem;
+  background: #fff;
   color: var(--dark-blue);
   border-radius: 2px;
 }

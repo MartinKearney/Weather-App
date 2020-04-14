@@ -69,12 +69,18 @@ const CurrentWeather = ({ data }) => {
           {/* <p>{summary}</p> */}
         </div>
         <div className='current-weather__display--details'>
-          <p>Temp: {currentTemp}&#176; C</p>
           <p>
-            Wind: {currentWindSpeed} mph {currentWindDirection}
+            <strong>Temp</strong>: {currentTemp}&#176; C
           </p>
-          <p>Humidity: {currentHumidity}%</p>
-          <p>Pressure: {currentPressure}mb</p>
+          <p>
+            <strong>Wind</strong>: {currentWindSpeed} mph {currentWindDirection}
+          </p>
+          <p>
+            <strong>Humidity</strong>: {currentHumidity}%
+          </p>
+          <p>
+            <strong>Pressure</strong>: {currentPressure}mb
+          </p>
         </div>
       </div>
     </div>

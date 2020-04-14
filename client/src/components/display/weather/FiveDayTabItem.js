@@ -10,13 +10,19 @@ const FiveDayTabItem = ({ data }) => {
 
   return (
     <div className='tab-item__item'>
-      <p className='tab-item__head'>{data.time}</p>
+      <p className='tab-item__head'>
+        <strong>{data.time}</strong>
+      </p>
       <img
         src={`http://openweathermap.org/img/wn/${data.icon}@2x.png`}
         alt='Weather Icon'
       />
-      <p>Temp: {data.temp}&#176; C</p>
-      <p>Wind: {data.wind}</p>
+      <p>
+        <strong>Temp</strong>: {data.temp}&#176; C
+      </p>
+      <p>
+        <strong>Wind</strong>: {data.wind}
+      </p>
     </div>
   );
 };

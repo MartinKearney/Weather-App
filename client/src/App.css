@@ -2,6 +2,7 @@
   --light-blue: #95d8eb;
   --med-blue: #4db4d7;
   --dark-blue: #0076be;
+  --earth-blue: #0000a0;
 }
 
 /* var(--success-color) */
@@ -30,7 +31,7 @@
   text-align: center;
   color: var(--dark-blue);
   text-decoration: underline;
-  margin: 5vh 0 2rem;
+  margin: 3vh 0 2rem;
   /* margin-top: 20vh;
   margin-bottom: 2rem; */
 }

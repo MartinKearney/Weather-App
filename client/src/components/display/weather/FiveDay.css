@@ -5,14 +5,15 @@
 }
 
 .five-day__side-labels {
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
   display: flex;
   flex-direction: column;
 }
 
 .five-day__side-labels label {
   display: inline-block;
-  border: 1px solid #000;
+  border: 2px solid var(--med-blue);
+  background: #eee;
   font-size: 1.5rem;
   color: var(--med-blue);
   text-align: center;
@@ -33,7 +34,7 @@
 }
 
 .five-day__weather-display {
-  border: 1px solid #0f0;
+  /* border: 1px solid #0f0; */
   /* display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr 1fr; */

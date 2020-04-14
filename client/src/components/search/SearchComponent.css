@@ -14,7 +14,8 @@
 
 .search-field {
   width: 100%;
-  border: 2px solid #000;
+
+  border: 2px solid var(--earth-blue);
   font-size: 1.2rem;
   padding-left: 2%;
 }
@@ -31,7 +32,7 @@
   width: 80%;
   justify-self: center;
   margin: 1rem 0.5rem;
-  border: 2px solid #000;
+  border: 2px solid var(--earth-blue);
   color: #fff;
 }
 

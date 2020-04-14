@@ -3,12 +3,15 @@
 }
 
 .tab-item__empty {
-  border: 1px solid #369;
+  border: 2px solid var(--dark-blue);
+  background: #fff;
   /* background: var(--light-blue); */
 }
 
 .tab-item__item {
-  border: 1px solid #369;
+  border: 2px solid var(--dark-blue);
+  background: #fff;
+  color: var(--dark-blue);
   /* display: flex;
   flex-direction: column;
   flex-grow: 1; */
@@ -25,7 +28,7 @@ p {
 
 img {
   display: block;
-  border: 1px solid #000;
+  border: 1px solid var(--earth-blue);
   width: 50%;
   margin: 0 auto;
 }

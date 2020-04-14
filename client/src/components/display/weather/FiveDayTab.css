@@ -1,8 +1,8 @@
 .five-day-tab {
   height: 100%;
-  border: 3px solid yellow;
+  /* border: 3px solid yellow; */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr 1fr;
-  gap: 3px;
+  /* gap: 3px; */
 }
