@@ -15,12 +15,13 @@
 
 .current-weather__display--image {
   border: 1px solid #000;
+  margin-left: 20%;
   text-align: center;
 }
 
 .current-weather__display--image > img {
   border: 1px solid #000;
-  width: 80%;
+  width: 30%;
 }
 
 .current-weather__display--image p {
@@ -30,6 +31,12 @@
   border: 1px solid #000;
   padding-left: 10%;
   align-self: center;
+}
+
+.current-weather__display--details p {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
 }
 
 .current-weather__sub {

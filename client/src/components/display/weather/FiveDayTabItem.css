@@ -4,7 +4,7 @@
 
 .tab-item__empty {
   border: 1px solid #369;
-  background: #333;
+  /* background: var(--light-blue); */
 }
 
 .tab-item__item {

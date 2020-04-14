@@ -73,9 +73,9 @@ const FiveDay = ({ data }) => {
       timeStamp -= 24;
     }
     let time = getHourTime(timeStamp);
-    let temp = round(fahrToCels(list[i].main.temp), 1);
+    let temp = round(fahrToCels(list[i].main.temp));
     let icon = list[i].weather[0].icon;
-    let windSpeed = round(list[i].wind.speed, 1);
+    let windSpeed = round(list[i].wind.speed);
     let windDir = degToDirection(list[i].wind.deg);
     let wind = `${windSpeed} mph ${windDir}`;
     // make an object from desired data above

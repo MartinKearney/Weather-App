@@ -15,7 +15,7 @@ const FiveDayTabItem = ({ data }) => {
         src={`http://openweathermap.org/img/wn/${data.icon}@2x.png`}
         alt='Weather Icon'
       />
-      <p>Temp: {data.temp}&#176;C</p>
+      <p>Temp: {data.temp}&#176; C</p>
       <p>Wind: {data.wind}</p>
     </div>
   );

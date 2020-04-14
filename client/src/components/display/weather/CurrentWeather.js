@@ -17,8 +17,8 @@ const CurrentWeather = ({ data }) => {
   const { name, sys, main, weather, wind, dt, timezone } = data;
 
   const summary = capitalizeFirstLetter(weather[0].description);
-  const currentTemp = round(fahrToCels(main.temp), 1);
-  const currentWindSpeed = round(wind.speed, 1);
+  const currentTemp = round(fahrToCels(main.temp));
+  const currentWindSpeed = round(wind.speed);
   const currentWindDirection = degToDirection(wind.deg);
   const currentHumidity = Math.round(main.humidity);
   const currentPressure = Math.round(main.pressure);
@@ -64,7 +64,7 @@ const CurrentWeather = ({ data }) => {
           <p>{summary}</p>
         </div>
         <div className='current-weather__display--details'>
-          <p>Temp: {currentTemp}&#176;C</p>
+          <p>Temp: {currentTemp}&#176; C</p>
           <p>
             Wind: {currentWindSpeed} mph {currentWindDirection}
           </p>

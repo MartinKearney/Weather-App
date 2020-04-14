@@ -14,6 +14,7 @@
   display: inline-block;
   border: 1px solid #000;
   font-size: 1.5rem;
+  color: var(--med-blue);
   text-align: center;
   flex-grow: 1;
   padding-top: 7%;
@@ -22,11 +23,13 @@
 }
 
 .five-day__side-labels label:hover {
-  background: #999;
+  background: var(--light-blue);
+  color: #fff;
 }
 
 .five-day__side-labels label.active {
-  background: #333;
+  background: var(--med-blue);
+  color: #fff;
 }
 
 .five-day__weather-display {

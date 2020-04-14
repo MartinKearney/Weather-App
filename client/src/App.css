@@ -1,9 +1,19 @@
+:root {
+  --light-blue: #95d8eb;
+  --med-blue: #4db4d7;
+  --dark-blue: #0076be;
+}
+
+/* var(--success-color) */
+
 * {
   box-sizing: border-box;
 }
 
 .App {
   border: 2px solid black;
+
+  min-height: 100vh;
   /* text-align: center;
   background-color: #282c34;
   min-height: 100vh;
@@ -16,12 +26,17 @@
 }
 
 .header {
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: center;
+  color: var(--dark-blue);
   text-decoration: underline;
-  margin: 10vh 0 2rem;
+  margin: 5vh 0 2rem;
   /* margin-top: 20vh;
   margin-bottom: 2rem; */
+}
+
+img {
+  background: var(--light-blue);
 }
 
 /* .App-header {
