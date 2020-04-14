@@ -1,7 +1,8 @@
 .five-day {
-  border: 2px solid blue;
+  border: 2px solid var(--dark-blue);
   display: grid;
   grid-template-columns: 1fr 5fr;
+  border-radius: 5px;
 }
 
 .five-day__side-labels {
@@ -12,10 +13,10 @@
 
 .five-day__side-labels label {
   display: inline-block;
-  border: 2px solid var(--med-blue);
+  border: 2px solid var(--dark-blue);
   background: #eee;
   font-size: 1.5rem;
-  color: var(--med-blue);
+  color: var(--dark-blue);
   text-align: center;
   flex-grow: 1;
   padding-top: 7%;
@@ -31,13 +32,6 @@
 .five-day__side-labels label.active {
   background: var(--med-blue);
   color: #fff;
-}
-
-.five-day__weather-display {
-  /* border: 1px solid #0f0; */
-  /* display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr 1fr; */
 }
 
 .tabcontent {
