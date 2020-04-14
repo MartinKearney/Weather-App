@@ -1,19 +1,21 @@
 .choice-list {
-  border: 2px solid green;
+  /* border: 2px solid green; */
 }
 
 .choice-list__header {
-  border: 2px solid yellow;
+  /* border: 2px solid yellow; */
 }
 
 .choice-list__header p {
   text-align: center;
-  text-decoration: underline;
-  font-size: 2rem;
+  /* text-decoration: underline; */
+  font-size: 1.5rem;
+  margin: 1rem auto 0.5rem;
+  color: var(--dark-blue);
 }
 
 .choice-list__list {
-  border: 4px solid purple;
+  /* border: 4px solid purple; */
   width: fit-content;
   margin: 0 auto;
 }

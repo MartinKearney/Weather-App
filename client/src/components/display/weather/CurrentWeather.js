@@ -55,13 +55,18 @@ const CurrentWeather = ({ data }) => {
 
   return (
     <div className='current-weather'>
+      <div className='current-weather__sub'>
+        <p>
+          &#40;Observed: {dayOfObs} {obsHour}&#41;
+        </p>
+      </div>
       <div className='current-weather__display'>
         <div className='current-weather__display--image'>
           <img
             src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
             alt='{weather[0].description}'
           />
-          <p>{summary}</p>
+          {/* <p>{summary}</p> */}
         </div>
         <div className='current-weather__display--details'>
           <p>Temp: {currentTemp}&#176; C</p>
@@ -71,11 +76,6 @@ const CurrentWeather = ({ data }) => {
           <p>Humidity: {currentHumidity}%</p>
           <p>Pressure: {currentPressure}mb</p>
         </div>
-      </div>
-      <div className='current-weather__sub'>
-        <p>
-          Observed: {dayOfObs} {obsHour}
-        </p>
       </div>
     </div>
   );

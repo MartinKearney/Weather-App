@@ -12,7 +12,7 @@
 
 .App {
   border: 2px solid black;
-
+  background: #e0ffff;
   min-height: 100vh;
   /* text-align: center;
   background-color: #282c34;

@@ -1,5 +1,5 @@
 .search-component {
-  border: 1px solid #00f;
+  /* border: 1px solid #00f; */
   width: 25%;
   margin: 0 auto;
   min-width: 15rem;
@@ -8,7 +8,7 @@
 
 .form {
   margin: 0 auto;
-  border: 1px solid #999;
+  /* border: 1px solid #999; */
   /* max-width: 40vw; */
 }
 
@@ -16,6 +16,7 @@
   width: 100%;
   border: 2px solid #000;
   font-size: 1.2rem;
+  padding-left: 2%;
 }
 
 .buttons {

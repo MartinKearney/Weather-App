@@ -1,7 +1,9 @@
 .weather > p {
   font-size: 1.2rem;
-  text-decoration: underline;
+  color: var(--dark-blue);
+  /* text-decoration: underline; */
   text-align: center;
+  margin-bottom: 0;
 }
 
 .weather-display {
