@@ -4,7 +4,7 @@ const router = express.Router();
 const cityListObject = require('../city-list.json');
 const cityList = cityListObject.cities;
 
-const resultsLimit = 20;
+const resultsLimit = 40;
 
 // @route       GET /:city
 // @desc        Return array of matching cities
