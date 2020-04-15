@@ -15,7 +15,6 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
   const onSubmit = (e) => {
     if (text) {
       e.preventDefault();
-      // clearForNewSearch();
       resetState();
       const city = text;
       getCitySearchResults(city);
@@ -33,19 +32,13 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
         <input
           className='search-field'
           type='text'
-          // name matches the state item
-          name='text'
+          // name='text'
           placeholder='Search Locations...'
           value={text}
           onChange={onChange}
         />
         <section className='buttons'>
-          <input
-            className='search-button'
-            type='submit'
-            value='Search'
-            // className='btn btn-dark btn-block'
-          />
+          <input className='search-button' type='submit' value='Search' />
           <button className='clear' onClick={clearSearch} disabled={!text}>
             Clear
           </button>

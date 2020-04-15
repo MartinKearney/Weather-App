@@ -14,7 +14,6 @@ import {
 } from '../../utils/helpers';
 
 const FiveDay = ({ data }) => {
-  console.log(data);
   const { city, list } = data;
   const timezone = city.timezone;
 
@@ -27,7 +26,6 @@ const FiveDay = ({ data }) => {
   // create date object from time stamp
   const dateObj = new Date(currentTimeStamp * 1000);
   const utcString = dateObj.toUTCString();
-  console.log(utcString);
 
   // Extract first hour from string
   const firstHourString = utcString.slice(-12, -10);
@@ -40,14 +38,9 @@ const FiveDay = ({ data }) => {
   if (!fiveDaySpan) {
     span = 6;
   }
-  console.log(span + ' days');
-  console.log('First hour ' + firstHour);
 
   // Want day of first forecast item
   const firstDay = utcString.slice(0, 3);
-  console.log('First day ' + firstDay);
-  // let nextDay = getNextDay(firstDay);
-  // console.log(nextDay);
 
   // Now set up array of day names for tab labels
   let days = [];
@@ -55,7 +48,6 @@ const FiveDay = ({ data }) => {
   for (let i = 0; i < span - 1; i++) {
     days.push(getNextDay(days[i]));
   }
-  console.log(days);
 
   // Now set up the 5 or 6 arrays to hold the weather
   // data for each particular day.
@@ -88,12 +80,13 @@ const FiveDay = ({ data }) => {
   if (span === 6) {
     const before = Math.floor(firstHour / 3);
     const after = 8 - before;
-    // create empty object
+    // create dummy object
     const dummy = { time: 99 };
     // add dummies to front
     // for (let i = 0; i < before; i++) {
     //   fiveDayArray.unshift(dummy);
     // }
+    // ********************************
     // or add dummies to end of first day
     // dummies needed = 'before' starting at
     // index 'after'
@@ -107,7 +100,6 @@ const FiveDay = ({ data }) => {
     }
   }
 
-  console.log(fiveDayArray);
   // Now split array into blocks of 8
   const day1 = fiveDayArray.slice(0, 8);
   const day2 = fiveDayArray.slice(8, 16);
@@ -119,21 +111,12 @@ const FiveDay = ({ data }) => {
     day6 = fiveDayArray.slice(40);
   }
 
-  console.log(day1);
-  console.log(day2);
-  console.log(day3);
-  console.log(day4);
-  console.log(day5);
-  console.log(day6);
-
   // click handler for labels
   const openDay = (e) => {
-    console.log(e.target.innerHTML);
     const dayName = e.target.innerHTML;
 
     // Get all elements with class="tabcontent" and hide them
     const tabcontent = document.getElementsByClassName('tabcontent');
-    console.log(tabcontent);
     for (let i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = 'none';
     }

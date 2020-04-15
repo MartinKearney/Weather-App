@@ -11,8 +11,6 @@ const ChoiceList = ({
   tooManyResults,
   selectCity,
 }) => {
-  // console.log('Hello from choice list');
-  // console.log(cities);
   const totalResults = cities.length;
 
   if (noResults) {

@@ -5,9 +5,6 @@ import FiveDayTabItem from './FiveDayTabItem';
 import './FiveDayTab.css';
 
 const FiveDayTab = ({ data }) => {
-  console.log(data);
-
-  // want to return 8 FiveDayTabItems
   return (
     <div className='five-day-tab'>
       <FiveDayTabItem data={data[0]} />

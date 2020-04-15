@@ -18,7 +18,6 @@ const Weather = ({ city, currentData, fiveDay }) => {
       </p>
       <div className='weather-display'>
         <CurrentWeather data={currentData} />
-
         <FiveDay data={fiveDay} />
       </div>
     </div>

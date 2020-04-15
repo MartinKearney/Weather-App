@@ -30,29 +30,6 @@ export const degToDirection = (deg) => {
   }
 };
 
-export const getWeekday = (dateTime) => {
-  const dt = new Date(dateTime);
-  const dayInt = dt.getDay();
-  switch (true) {
-    case dayInt === 0:
-      return 'Sun';
-    case dayInt === 1:
-      return 'Mon';
-    case dayInt === 2:
-      return 'Tue';
-    case dayInt === 3:
-      return 'Wed';
-    case dayInt === 4:
-      return 'Thu';
-    case dayInt === 5:
-      return 'Fri';
-    case dayInt === 6:
-      return 'Sat';
-    default:
-      return 'Error';
-  }
-};
-
 export const getNextDay = (day) => {
   switch (true) {
     case day === 'Sat':
@@ -69,32 +46,6 @@ export const getNextDay = (day) => {
       return 'Fri';
     case day === 'Fri':
       return 'Sat';
-    default:
-      return 'Error';
-  }
-};
-
-export const getHourTime12 = (dateTime) => {
-  // obtains the time in hours from input in 12 hour clock
-  const dt = new Date(dateTime);
-  const hour = dt.getHours();
-  switch (true) {
-    case hour === 0:
-      return '12am';
-    case hour === 3:
-      return '3am';
-    case hour === 6:
-      return '6am';
-    case hour === 9:
-      return '9am';
-    case hour === 12:
-      return '12pm';
-    case hour === 15:
-      return '3pm';
-    case hour === 18:
-      return '6pm';
-    case hour === 21:
-      return '9pm';
     default:
       return 'Error';
   }

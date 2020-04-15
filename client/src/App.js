@@ -9,7 +9,6 @@ import Weather from './components/display/weather/Weather';
 import './App.css';
 
 const App = () => {
-  // set up state using useState hook
   const [loading, setLoading] = useState(false);
   const [citySearchedFor, setCitySearchedFor] = useState('');
   const [searchComplete, setSearchComplete] = useState(false);
@@ -38,7 +37,7 @@ const App = () => {
       setNoResults(false);
       setCitySearchResults(searchResults.data);
     }
-    // setLoading(false);
+
     setSearchComplete(true);
   };
 
@@ -46,7 +45,7 @@ const App = () => {
     // clear this state here to stop continual searching as
     // this function is called every render if 'true'
     setSearchComplete(false);
-    // setLoading(true);
+
     // set up empty array for results
     let tempResults = [];
 
@@ -176,7 +175,7 @@ const App = () => {
   };
 
   const selectCity = (city) => {
-    // first hide the list of choice
+    // first hide the list of choices
     setShowChoiceList(false);
 
     // set the selected city
@@ -194,7 +193,7 @@ const App = () => {
     const current = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=Imperial&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
     );
-    // console.log(current.data);
+
     setCurrentWeather(current.data);
 
     // Now get five day forecast data
@@ -205,7 +204,7 @@ const App = () => {
     const fiveDay = await axios.get(
       `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=Imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
     );
-    // console.log(fiveDay.data);
+
     setFiveDayForecast(fiveDay.data);
   };
 
