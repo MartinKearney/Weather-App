@@ -32,7 +32,7 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
         <input
           className='search-field'
           type='text'
-          // name='text'
+          name='text'
           placeholder='Search Locations...'
           value={text}
           onChange={onChange}

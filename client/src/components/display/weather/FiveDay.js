@@ -83,16 +83,16 @@ const FiveDay = ({ data }) => {
     // create dummy object
     const dummy = { time: 99 };
     // add dummies to front
-    // for (let i = 0; i < before; i++) {
-    //   fiveDayArray.unshift(dummy);
-    // }
+    for (let i = 0; i < before; i++) {
+      fiveDayArray.unshift(dummy);
+    }
     // ********************************
     // or add dummies to end of first day
     // dummies needed = 'before' starting at
     // index 'after'
-    for (let i = 0; i < before; i++) {
-      fiveDayArray.splice(after + i, 0, dummy);
-    }
+    // for (let i = 0; i < before; i++) {
+    //   fiveDayArray.splice(after + i, 0, dummy);
+    // }
 
     // add dummies to back
     for (let i = 0; i < after; i++) {

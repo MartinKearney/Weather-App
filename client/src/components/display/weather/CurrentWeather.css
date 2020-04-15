@@ -23,6 +23,7 @@
 .current-weather__display img {
   display: inline-block;
   border: 2px solid var(--earth-blue);
+  border-radius: 25px;
   width: 20%;
   margin: 0;
   width: 11rem;
@@ -32,6 +33,7 @@
 .current-weather__display ul {
   list-style: none;
   border: 2px solid var(--earth-blue);
+  border-radius: 25px;
   background: #fff;
   color: var(--dark-blue);
   padding: 0 0.4rem;
