@@ -1,7 +1,3 @@
-.tab-item {
-  border: 1px solid #369;
-}
-
 .tab-item__empty {
   display: flex;
   border: 2px solid var(--dark-blue);
@@ -16,9 +12,6 @@
   border: 2px solid var(--dark-blue);
   background: #fff;
   color: var(--dark-blue);
-  /* display: flex;
-  flex-direction: column;
-  flex-grow: 1; */
   font-size: 0.6rem;
 }
 

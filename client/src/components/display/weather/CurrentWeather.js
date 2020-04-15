@@ -60,28 +60,28 @@ const CurrentWeather = ({ data }) => {
           &#40;Observed: {dayOfObs} {obsHour}&#41;
         </p>
       </div>
+
       <div className='current-weather__display'>
-        <div className='current-weather__display--image'>
-          <img
-            src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
-            alt='{weather[0].description}'
-          />
-          {/* <p>{summary}</p> */}
-        </div>
-        <div className='current-weather__display--details'>
-          <p>
+        <img
+          src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
+          alt='{weather[0].description}'
+        />
+        {/* <p>{summary}</p> */}
+
+        <ul>
+          <li>
             <strong>Temp</strong>: {currentTemp}&#176; C
-          </p>
-          <p>
+          </li>
+          <li>
             <strong>Wind</strong>: {currentWindSpeed} mph {currentWindDirection}
-          </p>
-          <p>
+          </li>
+          <li>
             <strong>Humidity</strong>: {currentHumidity}%
-          </p>
-          <p>
+          </li>
+          <li>
             <strong>Pressure</strong>: {currentPressure}mb
-          </p>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
   );
