@@ -1,5 +1,4 @@
 .search-component {
-  /* border: 1px solid #00f; */
   width: 25%;
   margin: 0 auto;
   min-width: 15rem;
@@ -8,13 +7,10 @@
 
 .form {
   margin: 0 auto;
-  /* border: 1px solid #999; */
-  /* max-width: 40vw; */
 }
 
 .search-field {
   width: 100%;
-
   border: 2px solid var(--earth-blue);
   font-size: 1.2rem;
   padding-left: 2%;
@@ -22,14 +18,13 @@
 
 .buttons {
   display: flex;
-
-  /* display: grid; */
-  /* grid-template-columns: repeat(2, 1fr); */
 }
 
 .buttons * {
   font-size: 1.2rem;
   width: 80%;
+  padding: 0.1rem 0;
+  border-radius: 4px;
   justify-self: center;
   margin: 1rem 0.5rem;
   border: 2px solid var(--earth-blue);
@@ -41,5 +36,5 @@
 }
 
 .clear {
-  background-color: #e69717;
+  background-color: #d4a017;
 }

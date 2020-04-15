@@ -3,9 +3,13 @@
 }
 
 .tab-item__empty {
+  display: flex;
   border: 2px solid var(--dark-blue);
   background: #fff;
-  /* background: var(--light-blue); */
+  color: var(--light-blue);
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 .tab-item__item {

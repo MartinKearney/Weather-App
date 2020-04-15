@@ -1,6 +1,6 @@
 .choice-item p {
   border: 1px solid var(--dark-blue);
-  margin: 0.15rem 0;
+  margin: 0.2rem 0;
   padding: 0.2rem 0.6rem;
   background: #fff;
   color: var(--dark-blue);

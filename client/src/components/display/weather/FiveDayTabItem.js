@@ -5,7 +5,7 @@ import './FiveDayTabItem.css';
 const FiveDayTabItem = ({ data }) => {
   console.log(data);
   if (data.time === 99) {
-    return <div className='tab-item__empty'></div>;
+    return <div className='tab-item__empty'>X</div>;
   }
 
   return (
