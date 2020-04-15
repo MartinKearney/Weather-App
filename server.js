@@ -4,7 +4,6 @@ const path = require('path');
 const app = express();
 
 // Enable acceptance of json into API
-// ** check if this is needed **
 app.use(express.json({ extended: false }));
 
 // Define API end point
