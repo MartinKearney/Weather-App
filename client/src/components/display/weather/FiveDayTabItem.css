@@ -2,6 +2,7 @@
   display: flex;
   border: 2px solid var(--dark-blue);
   background: #fff;
+  /* background: var(--light-green); */
   border-radius: 25px;
   color: var(--light-blue);
   justify-content: center;
@@ -12,6 +13,7 @@
 .tab-item__item {
   border: 2px solid var(--dark-blue);
   background: #fff;
+  /* background: var(--light-green); */
   border-radius: 25px;
   color: var(--dark-blue);
   font-size: 0.6rem;

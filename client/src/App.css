@@ -3,6 +3,8 @@
   --med-blue: #4db4d7;
   --dark-blue: #0076be;
   --earth-blue: #0000a0;
+  --light-green: #e5ffe5;
+  --dark-green: #40ff00;
 }
 
 * {
@@ -26,5 +28,6 @@
 }
 
 img {
-  background: var(--light-blue);
+  /* background: var(--light-blue); */
+  background: var(--med-blue);
 }

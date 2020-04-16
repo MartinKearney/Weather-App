@@ -10,29 +10,33 @@
 .five-day__side-labels {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .five-day__side-labels label {
   display: inline-block;
   border: 2px solid var(--dark-blue);
-  background: #eee;
+  background: #ddd;
   border-radius: 15px;
   font-size: 1.5rem;
   color: var(--dark-blue);
   text-align: center;
-  flex-grow: 1;
-  padding-top: 7%;
+
+  flex-grow: 0.1;
+  padding-top: 5%;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .five-day__side-labels label:hover {
-  background: var(--light-blue);
+  /* background: var(--light-blue); */
+  background: var(--med-blue);
   color: #fff;
 }
 
 .five-day__side-labels label.active {
-  background: var(--med-blue);
+  /* background: var(--med-blue); */
+  background: var(--dark-blue);
   color: #fff;
 }
 

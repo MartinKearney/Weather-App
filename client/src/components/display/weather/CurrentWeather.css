@@ -36,6 +36,7 @@
   border: 2px solid var(--earth-blue);
   border-radius: 25px;
   background: #fff;
+  /* background: var(--light-green); */
   color: var(--dark-blue);
   padding: 0 0.4rem;
   height: auto;
