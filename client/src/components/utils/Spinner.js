@@ -7,11 +7,13 @@ const Spinner = () => (
       src={spinner}
       alt='Loading...'
       style={{
-        width: '5%',
+        // width: '10%',
+        minWidth: '4rem',
+        maxWidth: '8rem',
         margin: '5% auto 0',
         display: 'block',
         border: 'none',
-        background: '#e0ffff',
+        background: 'none',
       }}
     />
   </Fragment>

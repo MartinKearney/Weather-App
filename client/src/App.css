@@ -10,10 +10,8 @@
 }
 
 .App {
-  /* background: #e0ffff; */
-  background: url('./cloudsandtrees.jpg');
-  /* background-size: cover; */
-  /* background-size: 100% 100vh; */
+  background: url('./images/cloudsandtrees.jpg');
+
   background-repeat: no-repeat;
   min-height: 100vh;
 }
