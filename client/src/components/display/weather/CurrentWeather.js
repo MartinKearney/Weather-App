@@ -1,10 +1,12 @@
 import React from 'react';
 
 import {
+  icons,
   round,
   fahrToCels,
   degToDirection,
   getHourTime,
+  getIconId,
   capitalizeFirstLetter,
 } from '../../utils/helpers';
 
@@ -14,6 +16,7 @@ const CurrentWeather = ({ data }) => {
   const { main, weather, wind, dt, timezone } = data;
 
   // const summary = capitalizeFirstLetter(weather[0].description);
+  const iconId = getIconId(weather[0].icon);
   const currentTemp = round(fahrToCels(main.temp));
   const currentWindSpeed = round(wind.speed);
   const currentWindDirection = degToDirection(wind.deg);
@@ -36,18 +39,26 @@ const CurrentWeather = ({ data }) => {
   // Get day of latest observation
   const dayOfObs = utcString.slice(0, 3);
 
+  // Get source of icon to display
+  let iconSrc;
+  for (let i = 0; i < icons.length; i++) {
+    if (icons[i].id === iconId) {
+      iconSrc = icons[i].src;
+      break;
+    }
+  }
+
   return (
     <div className='current-weather'>
       <div className='current-weather__sub'>
         <p>
-          &#40;Observed: {dayOfObs} {obsHour}&#41;
+          <strong>
+            &#40;Observed: {dayOfObs} {obsHour}&#41;
+          </strong>
         </p>
       </div>
       <div className='current-weather__display'>
-        <img
-          src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
-          alt='{weather[0].description}'
-        />
+        <img src={iconSrc} alt={weather[0].description} />
         {/* <p>{summary}</p> */}
         <ul>
           <li>

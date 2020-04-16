@@ -30,4 +30,5 @@ img {
   border: 1px solid var(--earth-blue);
   width: 50%;
   margin: 0 auto;
+  padding: 1%;
 }

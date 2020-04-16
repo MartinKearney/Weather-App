@@ -73,3 +73,63 @@ export const getHourTime = (h) => {
 export const setFiveDayObject = (ti, ic, te, wi) => {
   return { time: ti, icon: ic, temp: te, wind: wi };
 };
+
+export const getIconId = (code) => {
+  switch (true) {
+    case code === '01d':
+      return '1d';
+    case code === '01n':
+      return '1n';
+    case code === '02d':
+      return '2d';
+    case code === '02n':
+      return '2n';
+    case code === '03d':
+      return '3d';
+    case code === '03n':
+      return '3d';
+    case code === '04d':
+      return '4d';
+    case code === '04n':
+      return '4d';
+    case code === '09d':
+      return '9d';
+    case code === '09n':
+      return '9d';
+    case code === '10d':
+      return '10d';
+    case code === '10n':
+      return '10n';
+    case code === '11d':
+      return '11d';
+    case code === '11n':
+      return '11n';
+    case code === '13d':
+      return '13d';
+    case code === '13n':
+      return '13n';
+    case code === '50d':
+      return '50d';
+    case code === '50n':
+      return '50d';
+    default:
+      return 'error';
+  }
+};
+
+export const icons = [
+  { id: '1d', src: './images/01d.png' },
+  { id: '1n', src: './images/01n.png' },
+  { id: '2d', src: './images/02d.png' },
+  { id: '2n', src: './images/02n.png' },
+  { id: '3d', src: './images/03d.png' },
+  { id: '4d', src: './images/04d.png' },
+  { id: '9d', src: './images/09d.png' },
+  { id: '10d', src: './images/10d.png' },
+  { id: '10n', src: './images/10n.png' },
+  { id: '11d', src: './images/11d.png' },
+  { id: '11n', src: './images/11n.png' },
+  { id: '13d', src: './images/13d.png' },
+  { id: '13n', src: './images/13n.png' },
+  { id: '50d', src: './images/50d.png' },
+];

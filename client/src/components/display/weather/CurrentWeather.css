@@ -28,6 +28,7 @@
   margin: 0;
   width: 11rem;
   margin-right: 0.2rem;
+  padding: 1%;
 }
 
 .current-weather__display ul {
