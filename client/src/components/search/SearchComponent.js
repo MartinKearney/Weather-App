@@ -36,6 +36,7 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
           placeholder='Search Locations...'
           value={text}
           onChange={onChange}
+          autoFocus
         />
         <section className='buttons'>
           <input className='search-button' type='submit' value='Search' />
