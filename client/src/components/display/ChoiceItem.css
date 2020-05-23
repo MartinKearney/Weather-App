@@ -4,7 +4,7 @@
   padding: 0.2rem 0.6rem;
   background: #fff;
   color: var(--dark-blue);
-  border-radius: 2px;
+  border-radius: 8px;
 }
 
 .choice-item p:hover {
