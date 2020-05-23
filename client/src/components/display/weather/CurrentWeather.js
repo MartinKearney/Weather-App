@@ -7,7 +7,7 @@ import {
   degToDirection,
   getHourTime,
   getIconId,
-  capitalizeFirstLetter,
+  // capitalizeFirstLetter,
 } from '../../utils/helpers';
 
 import './CurrentWeather.css';
