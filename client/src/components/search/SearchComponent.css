@@ -38,3 +38,8 @@
 .clear {
   background-color: #d4a017;
 }
+
+.search-button:hover,
+.clear:hover {
+  cursor: pointer;
+}
