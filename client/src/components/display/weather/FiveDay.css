@@ -1,10 +1,8 @@
 .five-day {
-  /* border: 2px solid var(--dark-blue); */
   display: grid;
   grid-template-columns: 1fr 5fr;
   gap: 6px;
   border-radius: 5px;
-  /* background: var(--dark-blue); */
 }
 
 .five-day__side-labels {
@@ -29,13 +27,11 @@
 }
 
 .five-day__side-labels label:hover {
-  /* background: var(--light-blue); */
   background: var(--med-blue);
   color: #fff;
 }
 
 .five-day__side-labels label.active {
-  /* background: var(--med-blue); */
   background: var(--dark-blue);
   color: #fff;
 }

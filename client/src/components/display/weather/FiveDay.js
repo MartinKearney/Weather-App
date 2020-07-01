@@ -86,13 +86,6 @@ const FiveDay = ({ data }) => {
     for (let i = 0; i < before; i++) {
       fiveDayArray.unshift(dummy);
     }
-    // ********************************
-    // or add dummies to end of first day
-    // dummies needed = 'before' starting at
-    // index 'after'
-    // for (let i = 0; i < before; i++) {
-    //   fiveDayArray.splice(after + i, 0, dummy);
-    // }
 
     // add dummies to back
     for (let i = 0; i < after; i++) {
@@ -132,7 +125,6 @@ const FiveDay = ({ data }) => {
     e.currentTarget.className += ' active';
   };
 
-  //******************************
   return (
     <div className='five-day'>
       <div className='five-day__side-labels'>

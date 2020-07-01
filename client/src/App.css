@@ -13,7 +13,6 @@
 
 .App {
   background: url('./images/cloudsandtrees.jpg');
-
   background-repeat: no-repeat;
   min-height: 100vh;
 }
@@ -28,6 +27,5 @@
 }
 
 img {
-  /* background: var(--light-blue); */
   background: var(--med-blue);
 }
