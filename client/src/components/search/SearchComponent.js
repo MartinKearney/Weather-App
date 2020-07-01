@@ -12,9 +12,9 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
     }
   };
 
-  const onSubmit = (e) => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     if (text) {
-      e.preventDefault();
       resetState();
       const city = text;
       getCitySearchResults(city);
@@ -28,7 +28,7 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
 
   return (
     <div className='search-component'>
-      <form onSubmit={onSubmit} className='form'>
+      <form className='form'>
         <input
           className='search-field'
           type='text'
@@ -39,7 +39,9 @@ const SearchComponent = ({ getCitySearchResults, resetState }) => {
           autoFocus
         />
         <section className='buttons'>
-          <input className='search-button' type='submit' value='Search' />
+          <button className='search-button' onClick={handleSearch}>
+            Search
+          </button>
           <button className='clear' onClick={clearSearch} disabled={!text}>
             Clear
           </button>
