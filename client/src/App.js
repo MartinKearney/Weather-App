@@ -191,7 +191,7 @@ const App = () => {
     setGetWeather(false);
 
     const current = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=Imperial&APPID=${process.env.REACT_APP_OWM_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=Imperial&APPID=${process.env.REACT_APP_OWM_KEY}`
     );
 
     setCurrentWeather(current.data);
@@ -202,7 +202,7 @@ const App = () => {
 
   const getFiveDayForecast = async (id) => {
     const fiveDay = await axios.get(
-      `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=Imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+      `https://api.openweathermap.org/data/2.5/forecast?id=${id}&units=Imperial&appid=${process.env.REACT_APP_OWM_KEY}`
     );
 
     setFiveDayForecast(fiveDay.data);
