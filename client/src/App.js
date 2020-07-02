@@ -53,7 +53,7 @@ const App = () => {
       const latitude = cities[i].coord.lat;
       const longitude = cities[i].coord.lon;
       const result = await axios.get(
-        `https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?apiKey=${process.env.REACT_APP_DEVHERE_KEY}&mode=retrieveAddresses&prox=${latitude},${longitude},250`
+        `https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?apiKey=${process.env.REACT_APP_DH_KEY}&mode=retrieveAddresses&prox=${latitude},${longitude},250`
       );
 
       // Add appropriate data to tempResults array
@@ -191,7 +191,7 @@ const App = () => {
     setGetWeather(false);
 
     const current = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=Imperial&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
+      `http://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=Imperial&APPID=${process.env.REACT_APP_OWM_KEY}`
     );
 
     setCurrentWeather(current.data);
