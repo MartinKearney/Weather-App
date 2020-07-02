@@ -187,7 +187,7 @@ const App = () => {
 
   const getCurrentWeather = async (city) => {
     // reset this to false to prevent repeated calls to api as
-    // this function is called every render if getWeather is 'true'
+    // function is called every render if getWeather is 'true'
     setGetWeather(false);
 
     const current = await axios.get(
