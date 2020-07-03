@@ -1,6 +1,6 @@
 # Weather App
 
-This is application and can be viewed live at https://upper-bunnyhug-64871.herokuapp.com
+This application can be viewed live at https://upper-bunnyhug-64871.herokuapp.com
 
 To run in development mode:
 (N.B. you will need your own API keys from Open Weather Map and HERE Developer)
@@ -21,7 +21,7 @@ reverse geocoding API provided by HERE Developer it has been possible to attain 
 information and thus present the user with a suitably informative list of search results.  Once a selection
 is made the Open Weather Map API is then queried using the desired location's unique id and the user is
 presented with the forecast details: both the most recent current weather obseravtion and a 5 day
-forecast consisting of 40 forecast items separated at 3-hour intervals after the latest current observation.</p>
+forecast consisting of 40 forecast items separated at 3-hour intervals.</p>
 
 Technologies Used:
 
