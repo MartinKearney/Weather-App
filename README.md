@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Weather App
 
-## Available Scripts
+This is application and can be viewed live at https://upper-bunnyhug-64871.herokuapp.com
 
-In the project directory, you can run:
+To run in development mode:
+(N.B. you will need your own API keys from Open Weather Map and HERE Developer)
 
-### `npm start`
+1. Clone or download the project to your machine
+2. At a terminal prompt, in the root of the project, enter `npm install`
+3. Create a blank `.env` file in the client folder
+4. In this file set `REACT_APP_OWM_KEY` and `REACT_APP_DH_KEY` accordingly.
+5. Finally, at the terminal, in the project root, enter `npm run dev`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<p>The application uses Open Weather Map's city list json file on the backend.  When the user
+searches for a location this file is searched for matches on a starts-with basis.  The resulting
+matches are then each passed to HERE Developer API in order to get more precise location information.
+An apparent limitation of relying solely on Open Weather Map is that it is not possible to get state
+or county infromation about a location.  For example, searching for 'Aberdeen' using only Open Weather
+Map returns several which are in the USA, with no way of distinguishing between them.  By using the
+reverse geocoding API provided by HERE Developer it has been possible to attain this much needed extra
+information and thus present the user with a suitably informative list of search results.  Once a selection
+is made the Open Weather Map API is then queried using the desired location's unique id and the user is
+presented with the forecast details: both the most recent current weather obseravtion and a 5 day
+forecast consisting of 40 forecast items separated at 3-hour intervals after the latest current observation.</p>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Technologies Used:
 
-### `npm test`
+- React
+- Node.js
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Dependencies:
 
-### `npm run build`
+- express
+- axios
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Development Dependencies:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- nodemon
+- concurrently
