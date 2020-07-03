@@ -23,17 +23,17 @@ is made the Open Weather Map API is then queried using the desired location's un
 presented with the forecast details: both the most recent current weather obseravtion and a 5 day
 forecast consisting of 40 forecast items separated at 3-hour intervals.</p>
 
-Technologies Used:
+**Technologies Used:**
 
 - React
-- Node.js
+- Node/Express
 
-Dependencies:
+**Dependencies:**
 
 - express
 - axios
 
-Development Dependencies:
+**Development Dependencies:**
 
 - nodemon
 - concurrently
