@@ -43,3 +43,8 @@
 .clear:hover {
   cursor: pointer;
 }
+
+.search-button:focus,
+.clear:focus {
+  outline: none;
+}
